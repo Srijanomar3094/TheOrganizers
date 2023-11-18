@@ -6,12 +6,24 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from user.api.serializers import RegistrationSerializer
 
 
-@api_view(['POST',])
-def logout_view(request):
+# @api_view(['POST',])
+# def logout_view(request):
 
-    if request.method == 'POST':
-        request.user.auth_token.delete()
-        return Response(status=status.HTTP_200_OK)
+#     if request.method == 'POST':
+#         request.user.auth_token.delete()
+        
+#         token = RefreshToken(base64_encoded_token_string)
+#         token.blacklist()
+#         return Response(status=status.HTTP_200_OK)
+    
+# class BlacklistRefreshView(APIView):
+#     def post(self, request)
+    
+@api_view(['POST',])
+def BlacklistRefreshView(request):
+        token = RefreshToken(request.data.get('refresh'))
+        token.blacklist()
+        return Response("Success")
 
 
 @api_view(['POST',])
@@ -46,3 +58,9 @@ def registration_view(request):
         
         else:
             data = serializer.errors
+            
+            
+            
+
+
+
