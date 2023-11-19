@@ -42,9 +42,7 @@ def registration_view(request):
             data['email'] = account.email
        
         
-        
-    
-    
+
             refresh = RefreshToken.for_user(account)
 
             
