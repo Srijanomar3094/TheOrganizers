@@ -13,22 +13,22 @@ class ConferenceHall(models.Model):
 
 
 class Booking(models.Model):
-    employee = models.ForeignKey(User,on_delete=None,related_name="employeeId")
-    employee_details = models.ForeignKey(Employee_details,on_delete=None,related_name="detailsId")
+    employee = models.ForeignKey(User,on_delete=models.SET_NULL, null=True,related_name="employeeId")
+    employee_details = models.ForeignKey(Employee_details,on_delete=models.SET_NULL, null=True,related_name="detailsId")
     from_date = models.DateTimeField()
     to_date = models.DateTimeField()
     participants_count = models.IntegerField()
-    hall = models.ForeignKey(ConferenceHall,on_delete=None,null=True,related_name="ConferenceHall")
+    hall = models.ForeignKey(ConferenceHall,on_delete=models.SET_NULL, null=True,related_name="ConferenceHall")
     purpose = models.CharField(max_length=200)
     employee_remark = models.CharField(max_length=400)
     submit_date = models.DateTimeField(auto_now_add=True)
     
-    hod = models.ForeignKey(User,on_delete=None,null=True,related_name="hodId")
+    hod = models.ForeignKey(User,on_delete=models.SET_NULL, null=True,related_name="hodId")
     hod_remark = models.CharField(max_length=400)
     hod_approval_status =models.BooleanField()
     hod_status_date = models.DateTimeField()
     
-    ao = models.ForeignKey(User,on_delete=None,null=True,related_name="aoId")
+    ao = models.ForeignKey(User,on_delete=models.SET_NULL, null=True,related_name="aoId")
     ao_remark = models.CharField(max_length=400)
     ao_approval_status = models.BooleanField()
     ao_status_date = models.DateTimeField()
