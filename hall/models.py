@@ -20,7 +20,7 @@ class Booking(models.Model):
     participants_count = models.IntegerField()
     hall = models.ForeignKey(ConferenceHall,on_delete=None,null=True,related_name="ConferenceHall")
     purpose = models.CharField(max_length=200)
-    remark = models.CharField(max_length=400)
+    employee_remark = models.CharField(max_length=400)
     submit_date = models.DateTimeField(auto_now_add=True)
     
     hod = models.ForeignKey(User,on_delete=None,null=True,related_name="hodId")

@@ -5,6 +5,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from user.api.serializers import RegistrationSerializer
 
+from rest_framework_simplejwt.views import TokenObtainPairView
+#from .serializers import CustomTokenObtainPairSerializer,MyTokenObtainPairSerializer
+
 
 # @api_view(['POST',])
 # def logout_view(request):
@@ -57,6 +60,22 @@ def registration_view(request):
         else:
             data = serializer.errors
             
+            
+            
+            
+
+
+
+# class EmailTokenObtainPairView(TokenObtainPairView):
+#     serializer_class = CustomTokenObtainPairSerializer
+            
+            
+# class MyTokenObtainPairView(TokenObtainPairView):
+#    """
+#     Takes a set of user credentials and returns an access and refresh JSON web
+#     token pair to prove the authentication of those credentials.
+#    """
+#    serializer_class = MyTokenObtainPairSerializer
             
             
 
