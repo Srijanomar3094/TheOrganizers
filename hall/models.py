@@ -1,4 +1,6 @@
 from django.db import models
+from user.models import Employee_details
+from django.contrib.auth.models import User
 
 
 
@@ -8,4 +10,57 @@ class ConferenceHall(models.Model):
     eligible_occupancy = models.IntegerField()
     booking_days = models.IntegerField()
     image = models.ImageField(upload_to='')
+
+
+class Booking(models.Model):
+    employee = models.ForeignKey(User,on_delete=None,related_name="employeeId")
+    employee_details = models.ForeignKey(Employee_details,on_delete=None,related_name="detailsId")
+    from_date = models.DateTimeField()
+    to_date = models.DateTimeField()
+    participants_count = models.IntegerField()
+    hall = models.ForeignKey(ConferenceHall,on_delete=None,null=True,related_name="ConferenceHall")
+    purpose = models.CharField(max_length=200)
+    remark = models.CharField(max_length=400)
+    submit_date = models.DateTimeField(auto_now_add=True)
+    
+    hod = models.ForeignKey(User,on_delete=None,null=True,related_name="hodId")
+    hod_remark = models.CharField(max_length=400)
+    hod_approval_status =models.BooleanField()
+    hod_status_date = models.DateTimeField()
+    
+    ao = models.ForeignKey(User,on_delete=None,null=True,related_name="aoId")
+    ao_remark = models.CharField(max_length=400)
+    ao_approval_status = models.BooleanField()
+    ao_status_date = models.DateTimeField()
+    
+    
+# class Booking(models.Model):
+#     employee = models.ForeignKey(User,on_delete=None,related_name="employeeId")
+#     employee_details = models.ForeignKey(Employee_details,on_delete=None,related_name="detailsId")
+#     from_date = models.DateField()
+#     time = models.TimeField()
+#     to_date = models.DateField
+#     time = models.TimeField
+#     participants_count = models.IntegerField
+#     hall = models.ForeignKey(ConferenceHall,on_delete=None,null=True,related_name="ConferenceHall")
+#     purpose = models.CharField(max_length=200)
+#     remark = models.CharField(max_length=400)
+#     submitDateTime = models.DateTimeField(auto_now_add=True)
+    
+    
+# class HODapproval(models.Model):
+#     booking_details = models.ForeignKey(Booking,on_delete=None,null=True,related_name="HallBooking")
+#     hod = models.ForeignKey(User,on_delete=None,null=True)
+#     hod_remark = models.CharField(max_length=400)
+#     approval_status =models.BooleanField()
+#     status_date = models.DateTimeField()
+    
+# class AOapproval(models.Model):
+#     booking_details = models.ForeignKey(Booking,on_delete=None,null=True)
+#     hod_approval = models.ForeignKey(HODapproval,on_delete=None,null=True)
+#     ao = models.ForeignKey(User,on_delete=None,null=True)
+#     ao_remark = models.CharField(max_length=400)
+#     approval_status = models.BooleanField()
+#     status_date = models.DateTimeField()
+    
     

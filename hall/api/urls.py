@@ -1,10 +1,10 @@
 from django.urls import path
 
 
-# urlpatterns = [
+urlpatterns = [
 
-#     path('token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
+   # path('token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
     
     
-# ]
+]
 
