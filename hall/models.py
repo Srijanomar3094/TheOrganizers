@@ -8,7 +8,7 @@ class ConferenceHall(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     eligible_occupancy = models.IntegerField()
-    booking_days = models.IntegerField()
+    booking_days_limit = models.IntegerField()
     image = models.ImageField(upload_to='')
 
 
@@ -25,13 +25,13 @@ class Booking(models.Model):
     
     hod = models.ForeignKey(User,on_delete=models.SET_NULL, null=True,related_name="hodId")
     hod_remark = models.CharField(max_length=400)
-    hod_approval_status =models.BooleanField()
-    hod_status_date = models.DateTimeField()
+    hod_approval_status =models.BooleanField(null=True)
+    hod_status_date = models.DateTimeField(null=True)
     
     ao = models.ForeignKey(User,on_delete=models.SET_NULL, null=True,related_name="aoId")
     ao_remark = models.CharField(max_length=400)
-    ao_approval_status = models.BooleanField()
-    ao_status_date = models.DateTimeField()
+    ao_approval_status = models.BooleanField(null=True)
+    ao_status_date = models.DateTimeField(null=True)
     
     
 # class Booking(models.Model):
