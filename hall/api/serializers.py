@@ -15,6 +15,20 @@ class BookingSerializer(serializers.ModelSerializer):
                   'participants_count','hall','purpose',
                   'employee_remark']
 
+        employee = serializers.CharField(default=serializers.CurrentUserDefault())
+        
+        
+class HODSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ['hod_remark','hod_approval_status']
+        
+        
+class AOSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ['ao_remark','ao_approval_status']
+
         
 
         
