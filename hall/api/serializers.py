@@ -15,7 +15,7 @@ class BookingSerializer(serializers.ModelSerializer):
                   'participants_count','hall','purpose',
                   'employee_remark']
 
-        employee = serializers.CharField(default=serializers.CurrentUserDefault())
+      #  employee = serializers.CharField(default=serializers.CurrentUserDefault())
         
         
 class HODSerializer(serializers.ModelSerializer):

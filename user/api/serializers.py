@@ -32,6 +32,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
     
     
     
+    
+    
 
 
 # class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
