@@ -26,6 +26,7 @@ class HelloView(APIView):
 
         
 class AddHallGV(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = ConferenceHall.objects.all()
     serializer_class = HallSerializer
         
@@ -38,21 +39,27 @@ class BookAV(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        movies = Booking.objects.all()
-        serializer = BookingSerializer(movies, many=True)
-        return Response(serializer.data)
-
-    def post(self, request):
-        user_id = self.request.user
-        details=User_details.objects.get(employee=user_id)
-        serializer = BookingSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(employee=user_id,employee_details=details)
-            
-            
+        if User_details.objects.filter(user=self.request.user,role="employee").exists():
+            movies = Booking.objects.all()
+            serializer = BookingSerializer(movies, many=True)
             return Response(serializer.data)
         else:
-            return Response(serializer.errors)
+            return Response({"error":"not permitted"})
+
+    def post(self, request):
+        if User_details.objects.filter(user=self.request.user,role="employee").exists():
+            user_id = self.request.user
+            details=User_details.objects.get(employee=user_id)
+            serializer = BookingSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(employee=user_id,employee_details=details)
+                
+                
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors)
+        else:
+            return Response({"error":"not permitted"})
 
 
 
@@ -63,22 +70,28 @@ class HODAV(APIView):
     permission_classes = (IsAuthenticated,)
     
     def get(self, request, pk):
-        try:
-            book = Booking.objects.get(pk=pk)
-        except Booking.DoesNotExist:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        if User_details.objects.filter(user=self.request.user,role="hod").exists():
+            try:
+                book = Booking.objects.get(pk=pk)
+            except Booking.DoesNotExist:
+                return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = HODSerializer(book)
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        movie = Booking.objects.get(pk=pk)
-        serializer = HODSerializer(movie, data=request.data)
-        if serializer.is_valid():
-            serializer.save(hod=self.request.user,hod_status_date=datetime.now())
+            serializer = HODSerializer(book)
             return Response(serializer.data)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error":"not permitted"})
+
+    def put(self, request, pk):
+        if User_details.objects.filter(user=self.request.user,role="hod").exists():
+            movie = Booking.objects.get(pk=pk)
+            serializer = HODSerializer(movie, data=request.data)
+            if serializer.is_valid():
+                serializer.save(hod=self.request.user,hod_status_date=datetime.now())
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"error":"not permitted"})
         
         
 class AOAV(APIView):
@@ -86,22 +99,28 @@ class AOAV(APIView):
     permission_classes = (IsAuthenticated,)
     
     def get(self, request, pk):
-        try:
-            book = Booking.objects.get(pk=pk)
-        except Booking.DoesNotExist:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        if User_details.objects.filter(user=self.request.user,role="ao").exists():
+            try:
+                book = Booking.objects.get(pk=pk)
+            except Booking.DoesNotExist:
+                return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        serializer = AOSerializer(book)
-        return Response(serializer.data)
-
-    def put(self, request, pk):
-        movie = Booking.objects.get(pk=pk)
-        serializer = AOSerializer(movie, data=request.data)
-        if serializer.is_valid():
-            serializer.save(ao=self.request.user,ao_status_date=datetime.now())
+            serializer = AOSerializer(book)
             return Response(serializer.data)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error":"not permitted"})
+
+    def put(self, request, pk):
+        if User_details.objects.filter(user=self.request.user,role="ao").exists():
+            movie = Booking.objects.get(pk=pk)
+            serializer = AOSerializer(movie, data=request.data)
+            if serializer.is_valid():
+                serializer.save(ao=self.request.user,ao_status_date=datetime.now())
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"error":"not permitted"})
  
         
         
