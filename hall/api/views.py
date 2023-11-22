@@ -13,35 +13,50 @@ from django.contrib.auth.models import User
 from datetime import datetime
 
 
+        
+# class AddHallGV(generics.ListCreateAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     queryset = ConferenceHall.objects.all()
+#     serializer_class = HallSerializer
 
 
-
-class HelloView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request):
-        content = {'message': 'Authenticated'}
-        return Response(content)    
+class AddHallAV(APIView):
     
 
-        
-class AddHallGV(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
-    queryset = ConferenceHall.objects.all()
-    serializer_class = HallSerializer
-        
+
+    def get(self, request):
+        if User_details.objects.filter(user=self.request.user,role="ao").exists():
+            new = ConferenceHall.objects.all()
+            serializer = HallSerializer(new, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error":"not permitted"})
+
+    def post(self, request):
+        if User_details.objects.filter(user=self.request.user,role="ao").exists():
+            user_id = self.request.user
+            details=User_details.objects.get(employee=user_id)
+            serializer = HallSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(employee=user_id,employee_details=details)
+                
+                
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors)
+        else:
+            return Response({"error":"not permitted"})   
 
             
 class BookAV(APIView):
     
-    
-
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         if User_details.objects.filter(user=self.request.user,role="employee").exists():
-            movies = Booking.objects.all()
-            serializer = BookingSerializer(movies, many=True)
+            new = Booking.objects.all()
+            serializer = BookingSerializer(new, many=True)
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
@@ -65,8 +80,7 @@ class BookAV(APIView):
 
 
 class HODAV(APIView):
-
-   
+    
     permission_classes = (IsAuthenticated,)
     
     def get(self, request, pk):
@@ -93,9 +107,8 @@ class HODAV(APIView):
         else:
             return Response({"error":"not permitted"})
         
-        
-class AOAV(APIView):
     
+class AOAV(APIView):
     permission_classes = (IsAuthenticated,)
     
     def get(self, request, pk):
@@ -132,8 +145,8 @@ class AOAV(APIView):
 # def add_hall(request):
 
 #     if request.method == 'GET':
-#         movies = ConferenceHall.objects.all()
-#         serializer = HallSerializer(movies, many=True)
+#         new = ConferenceHall.objects.all()
+#         serializer = HallSerializer(new, many=True)
 #         return Response(serializer.data)
 
 #     if request.method == 'POST':
@@ -151,8 +164,8 @@ class AOAV(APIView):
 # def new_booking(request):
 
 #     if request.method == 'GET':
-#             movies = Booking.objects.all()
-#             serializer = BookingSerializer(movies, many=True)
+#             new = Booking.objects.all()
+#             serializer = BookingSerializer(new, many=True)
 #             return Response(serializer.data)
        
 
