@@ -1,5 +1,5 @@
 from django.db import models
-from user.models import Employee_details
+from user.models import User_details
 from django.contrib.auth.models import User
 
 
@@ -14,7 +14,7 @@ class ConferenceHall(models.Model):
 
 class Booking(models.Model):
     employee = models.ForeignKey(User,on_delete=models.SET_NULL, null=True,related_name="employeeId")
-    employee_details = models.ForeignKey(Employee_details,on_delete=models.SET_NULL, null=True,related_name="detailsId")
+    employee_details = models.ForeignKey(User_details,on_delete=models.SET_NULL, null=True,related_name="detailsId")
     from_date = models.DateTimeField()
     to_date = models.DateTimeField()
     participants_count = models.IntegerField()

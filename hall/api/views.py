@@ -3,11 +3,14 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics
 from hall.models import Booking,ConferenceHall
+from user.models import User_details
 from hall.api.serializers import (BookingSerializer,
                                   HallSerializer,
                                   HODSerializer,
                                   AOSerializer)
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from datetime import datetime
 
 
 
@@ -40,27 +43,13 @@ class BookAV(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        # watchlist = WatchList.objects.get(pk=pk)
-        # employee = self.request.user
-        
-        # review_queryset = Review.objects.filter(watchlist=watchlist, review_user=employee)
-
-
-
-        # if watchlist.number_rating == 0:
-        #     watchlist.avg_rating = serializer.validated_data['rating']
-        # else:
-        #     watchlist.avg_rating = (watchlist.avg_rating + serializer.validated_data['rating'])/2
-
-        # watchlist.number_rating = watchlist.number_rating + 1
-        # watchlist.save()
-
-        # serializer.save(watchlist=watchlist, review_user=review_user)
+        user_id = self.request.user
+        details=User_details.objects.get(employee=user_id)
         serializer = BookingSerializer(data=request.data)
         if serializer.is_valid():
-            id = request.user
-            add = Booking.objects.filter()
-            serializer.save()
+            serializer.save(employee=user_id,employee_details=details)
+            
+            
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
@@ -86,7 +75,7 @@ class HODAV(APIView):
         movie = Booking.objects.get(pk=pk)
         serializer = HODSerializer(movie, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(hod=self.request.user,hod_status_date=datetime.now())
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -109,7 +98,7 @@ class AOAV(APIView):
         movie = Booking.objects.get(pk=pk)
         serializer = AOSerializer(movie, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(ao=self.request.user,ao_status_date=datetime.now())
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
