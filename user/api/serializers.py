@@ -1,6 +1,12 @@
 from django.contrib.auth.models import User
+from django.forms import EmailField
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer,TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import status
+from rest_framework.response import Response
+
+#from hallbooking.user.models import User_details
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -29,6 +35,25 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account.save()
 
         return account
+    
+    
+class MyLogin(TokenObtainPairSerializer):
+    username_field = 'email'
+    
+    # def validate(self, attrs):
+    #     """Overrides validate method in TokenObtainPairSerializer"""
+       
+        # custom login as per your requirement
+        # Here, we will check whether the user email is verified, if not return an error
+        # if not email_field.verified:
+        # #     return Response("Please verify your email.", status=status.HTTP_400_BAD_REQUEST).data# validate the user credentials returns an error if credentials are not valid
+        #     data = super(TokenObtainPairSerializer, self).validate(attrs)
+        #     return data
+        # return Response("loggedin", status=status.HTTP_200_OK)
+    
+    
+class MyTokenObtainView(TokenObtainPairView):
+    serializer_class = MyLogin
     
     
     
