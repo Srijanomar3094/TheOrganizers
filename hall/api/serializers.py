@@ -8,13 +8,25 @@ class HallSerializer(serializers.ModelSerializer):
         fields = "__all__"
         
         
+class OptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConferenceHall
+        fields = ['name','description','image']
         
+    
 class BookingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ['employee','employee_details','from_date','to_date',
+        fields = ['employee','from_date','to_date',
                   'participants_count','hall','purpose',
                   'employee_remark']
+        
+class AOBookingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ['employee','from_date','to_date',
+                  'participants_count','hall','purpose','hod_approval_status',
+                  'hod_remark','employee_remark']
         
 class HODSerializer(serializers.ModelSerializer):
     class Meta:
