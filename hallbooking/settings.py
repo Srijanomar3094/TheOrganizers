@@ -130,13 +130,6 @@ CORS_ALLOW_CREDENTIALS = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static"),
-#     '/var/www/static/',
-# ]
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/dev/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -147,16 +140,6 @@ REST_FRAMEWORK = {
     
          'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle'
-    ],
-
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '100/day',
-        'user': '100/day',
-    },
 
 }
 

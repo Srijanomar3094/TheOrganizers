@@ -15,9 +15,6 @@ class BookingSerializer(serializers.ModelSerializer):
         fields = ['employee','employee_details','from_date','to_date',
                   'participants_count','hall','purpose',
                   'employee_remark']
-
-      #  employee = serializers.CharField(default=serializers.CurrentUserDefault())
-        
         
 class HODSerializer(serializers.ModelSerializer):
     class Meta:

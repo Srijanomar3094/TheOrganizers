@@ -48,7 +48,21 @@ class AddHallAV(APIView):
         else:
             return Response({"error":"not permitted"})   
 
-            
+   
+class BookingsAV(APIView):
+    
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        if User_details.objects.filter(user=self.request.user,role="hod").exists():
+            new = Booking.objects.all()
+            serializer = BookingSerializer(new, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error":"not permitted"})
+        
+        
+
 class BookAV(APIView):
     
     permission_classes = (IsAuthenticated,)
@@ -107,6 +121,7 @@ class HODAV(APIView):
         else:
             return Response({"error":"not permitted"})
         
+
     
 class AOAV(APIView):
     permission_classes = (IsAuthenticated,)
