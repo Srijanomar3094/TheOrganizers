@@ -38,6 +38,11 @@ class Booking(models.Model):
     ao_approval_status = models.BooleanField(null=True)
     ao_status_date = models.DateTimeField(null=True)
     
+class Homepage(models.Model):
+    role = models.CharField(max_length=20)
+    field = models.CharField(max_length=50)
+    route = models.CharField(max_length=100)
+    
     
 # class Booking(models.Model):
 #     employee = models.ForeignKey(User,on_delete=None,related_name="employeeId")

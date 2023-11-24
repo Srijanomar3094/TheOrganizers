@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from hall.models import Booking,ConferenceHall,HallImage
+from hall.models import Booking,ConferenceHall,HallImage,Homepage
 
 class HallImageSerializers(serializers.ModelSerializer):
     class Meta:
@@ -28,6 +28,12 @@ class HallSerializer(serializers.ModelSerializer):
             return hall
         
         
+class HomeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Homepage
+        fields = "__all__"
+        
+          
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConferenceHall
