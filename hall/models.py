@@ -9,7 +9,12 @@ class ConferenceHall(models.Model):
     description = models.CharField(max_length=200)
     eligible_occupancy = models.IntegerField()
     booking_days_limit = models.IntegerField()
-    image = models.ImageField(upload_to='')
+   # image = models.ImageField(upload_to='')
+    
+    
+class HallImage(models.Model):
+    product = models.ForeignKey(ConferenceHall,on_delete=models.SET_NULL, null=True)                
+    image = models.ImageField(upload_to="products")
 
 
 class Booking(models.Model):

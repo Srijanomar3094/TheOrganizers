@@ -37,23 +37,23 @@ class RegistrationSerializer(serializers.ModelSerializer):
         return account
     
     
-class MyLogin(TokenObtainPairSerializer):
-    username_field = 'email'
+# class MyLogin(TokenObtainPairSerializer):
+#     username_field = 'email'
     
-    # def validate(self, attrs):
-    #     """Overrides validate method in TokenObtainPairSerializer"""
+#     # def validate(self, attrs):
+#     #     """Overrides validate method in TokenObtainPairSerializer"""
        
-        # custom login as per your requirement
-        # Here, we will check whether the user email is verified, if not return an error
-        # if not email_field.verified:
-        # #     return Response("Please verify your email.", status=status.HTTP_400_BAD_REQUEST).data# validate the user credentials returns an error if credentials are not valid
-        #     data = super(TokenObtainPairSerializer, self).validate(attrs)
-        #     return data
-        # return Response("loggedin", status=status.HTTP_200_OK)
+#         # custom login as per your requirement
+#         # Here, we will check whether the user email is verified, if not return an error
+#         # if not email_field.verified:
+#         # #     return Response("Please verify your email.", status=status.HTTP_400_BAD_REQUEST).data# validate the user credentials returns an error if credentials are not valid
+#         #     data = super(TokenObtainPairSerializer, self).validate(attrs)
+#         #     return data
+#         # return Response("loggedin", status=status.HTTP_200_OK)
     
     
-class MyTokenObtainView(TokenObtainPairView):
-    serializer_class = MyLogin
+# class MyTokenObtainView(TokenObtainPairView):
+#     serializer_class = MyLogin
     
     
     
