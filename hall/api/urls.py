@@ -1,10 +1,10 @@
 from django.urls import path
-from hall.api.views import AddHallAV,HallOptionsAV,HODAV,AOAV,BookAV,HODBookingsAV,AOBookingsAV
+from hall.api.views import AddHallGV,HallOptionsAV,HODAV,AOAV,BookAV,HODBookingsAV,AOBookingsAV
 
 
 urlpatterns = [
 
-   path('add/', AddHallAV.as_view(), name='add-hall'),
+   path('add/', AddHallGV.as_view(), name='add-hall'),
    path('options/', HallOptionsAV.as_view(), name='hall-options'),
    path('booking/', BookAV.as_view(), name='new-booking'),
    path('hod<int:pk>/', HODAV.as_view(), name='HOD-approval'),

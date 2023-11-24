@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics
+from rest_framework.generics import CreateAPIView
+from rest_framework.parsers import MultiPartParser, FormParser
 from hall.models import Booking,ConferenceHall
 from user.models import User_details
 from hall.api.serializers import (BookingSerializer,
@@ -26,33 +28,33 @@ from datetime import datetime
     
     
     
-class AddHallAV(APIView):
+# class AddHallAV(APIView):
     
 
-    permission_classes = (IsAuthenticated,)
+#     permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
-        if User_details.objects.filter(user=self.request.user,role="ao").exists():
-            new = ConferenceHall.objects.all()
-            serializer = HallSerializer(new, many=True)
-            return Response(serializer.data)
-        else:
-            return Response({"error":"not permitted"})
+#     def get(self, request):
+#         if User_details.objects.filter(user=self.request.user,role="ao").exists():
+#             new = ConferenceHall.objects.all()
+#             serializer = HallSerializer(new, many=True)
+#             return Response(serializer.data)
+#         else:
+#             return Response({"error":"not permitted"})
 
-    def post(self, request):
-        if User_details.objects.filter(user=self.request.user,role="ao").exists():
-            user_id = self.request.user
-            details=User_details.objects.get(employee=user_id)
-            serializer = HallSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save(employee=user_id,employee_details=details)
+#     def post(self, request):
+#         if User_details.objects.filter(user=self.request.user,role="ao").exists():
+#             user_id = self.request.user
+#             details=User_details.objects.get(employee=user_id)
+#             serializer = HallSerializer(data=request.data)
+#             if serializer.is_valid():
+#                 serializer.save(employee=user_id,employee_details=details)
                 
                 
-                return Response(serializer.data)
-            else:
-                return Response(serializer.errors)
-        else:
-            return Response({"error":"not permitted"})   
+#                 return Response(serializer.data)
+#             else:
+#                 return Response(serializer.errors)
+#         else:
+#             return Response({"error":"not permitted"})   
 
 class HallOptionsAV(APIView):
     permission_classes = (IsAuthenticated,)
@@ -65,7 +67,11 @@ class HallOptionsAV(APIView):
         else:
             return Response({"error":"not permitted"})
 
-
+class AddHallGV(CreateAPIView):
+    parser_class = [MultiPartParser, FormParser]
+    serializer_class = HallSerializer
+    
+    
 class BookAV(APIView):
     
     permission_classes = (IsAuthenticated,)
