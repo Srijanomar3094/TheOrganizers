@@ -42,6 +42,7 @@ class Homepage(models.Model):
     role = models.CharField(max_length=20)
     field = models.CharField(max_length=50)
     route = models.CharField(max_length=100)
+    order = models.IntegerField(default=1)
     
     
 # class Booking(models.Model):
