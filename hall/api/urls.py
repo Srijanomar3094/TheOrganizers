@@ -12,7 +12,7 @@ urlpatterns = [
    path('ao<int:pk>/', AOAV.as_view(), name='AO-approval'),
    path('hodbooked/', HODBookingsAV.as_view(), name='new-bookings'),
    path('hodbooking/', HODBookingsAV.as_view(), name='booked'),
-   path('aobooked/', AOBookingsAV.as_view(), name='new-bookings'),
+   path('aobooked/', AOAV.as_view(), name='new-bookings'),
    path('aobookings/', AOBookingsAV.as_view(), name='booked'),
   # path('hallavailable',hallAvailableAV.as_view(),name='hall availability check')
     

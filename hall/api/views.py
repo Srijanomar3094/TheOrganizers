@@ -79,17 +79,17 @@ class HomeAV(APIView):
     def get(self, request):
         user_role=User_details.objects.filter(user=self.request.user).first()
         if user_role.role=="employee":
-            fields=Homepage.objects.filter(role="employee").values('field','role')
+            fields=Homepage.objects.filter(role="employee").values('field','role','route')
             serializer = HomeSerializer(fields, many=True)
             return Response(serializer.data)
         
         elif user_role.role=="hod":
-            fields=Homepage.objects.filter(role="hod").values('field','role')
+            fields=Homepage.objects.filter(role="hod").values('field','role','route')
             serializer = HomeSerializer(fields, many=True)
             return Response(serializer.data)
      
         elif user_role.role=="ao":
-            fields=Homepage.objects.filter(role="ao").values('field','role')
+            fields=Homepage.objects.filter(role="ao").values('field','role','route')
             serializer = HomeSerializer(fields, many=True)
             return Response(serializer.data)
         else:

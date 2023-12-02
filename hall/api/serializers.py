@@ -32,7 +32,7 @@ class HallSerializer(serializers.ModelSerializer):
 class HomeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Homepage
-        fields = ['field','role']
+        fields = ['field','role','route']
         
           
 class OptionSerializer(serializers.ModelSerializer):
