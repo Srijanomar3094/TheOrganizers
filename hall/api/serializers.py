@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from hall.models import Booking,ConferenceHall,HallImage,Homepage
+from user.models import User_details
 
 class HallImageSerializers(serializers.ModelSerializer):
     class Meta:
@@ -31,28 +32,49 @@ class HallSerializer(serializers.ModelSerializer):
 class HomeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Homepage
-        fields = "__all__"
+        fields = ['field','role']
         
           
 class OptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConferenceHall
-        fields = ['name','description','image']
+        fields = ['id','name','description']
         
     
 class BookingSerializer(serializers.ModelSerializer):
+    employee_details = serializers.ReadOnlyField(source='employee_details.department')
+    
     class Meta:
         model = Booking
         fields = ['employee','from_date','to_date',
-                  'participants_count','hall','purpose',
-                  'employee_remark']
+                  'participants_count','hall','purpose','employee_remark','employee_details']
+ 
+ 
+        
+# class DepartmentSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User_details
+#         fields = ['department']
+               
+# class AOBookingSerializer(serializers.ModelSerializer):
+#     user_details_id = serializers.RelatedField(many=True)
+#     class Meta:
+#         model = Booking
+#         fields = ['employee','from_date','to_date',
+#                   'participants_count','hall','purpose','hod_approval_status',
+#                   'hod_remark','employee_remark','hod_status_date','submit_date','user_deatails_id']
         
 class AOBookingSerializer(serializers.ModelSerializer):
+    employee_details = serializers.ReadOnlyField(source='employee_details.department')
+
     class Meta:
         model = Booking
         fields = ['employee','from_date','to_date',
                   'participants_count','hall','purpose','hod_approval_status',
-                  'hod_remark','employee_remark']
+                  'hod_remark','employee_remark','hod_status_date','submit_date','employee_details']
+
+    
+   
         
 class HODSerializer(serializers.ModelSerializer):
     class Meta:

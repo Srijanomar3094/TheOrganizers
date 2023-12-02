@@ -79,17 +79,17 @@ class HomeAV(APIView):
     def get(self, request):
         user_role=User_details.objects.filter(user=self.request.user).first()
         if user_role.role=="employee":
-            fields=Homepage.objects.filter(role="employee").all()
+            fields=Homepage.objects.filter(role="employee").values('field','role')
             serializer = HomeSerializer(fields, many=True)
             return Response(serializer.data)
         
         elif user_role.role=="hod":
-            fields=Homepage.objects.filter(role="hod").all()
+            fields=Homepage.objects.filter(role="hod").values('field','role')
             serializer = HomeSerializer(fields, many=True)
             return Response(serializer.data)
      
         elif user_role.role=="ao":
-            fields=Homepage.objects.filter(role="ao").all()
+            fields=Homepage.objects.filter(role="ao").values('field','role')
             serializer = HomeSerializer(fields, many=True)
             return Response(serializer.data)
         else:
@@ -132,7 +132,7 @@ class HODBookingsAV(APIView):
 
     def get(self, request):
         if User_details.objects.filter(user=self.request.user,role="hod").exists():
-            new = Booking.objects.filter(hod_approval_status__isnull=True)
+            new = Booking.objects.filter(hod_approval_status__isnull=True).all()
             serializer = BookingSerializer(new, many=True)
             return Response(serializer.data)
         else:
@@ -250,3 +250,26 @@ class AOAV(APIView):
 #                 return Response(serializer.data)
 #             else:
 #                 return Response(serializer.errors)
+# class AO(APIView):
+    
+#     permission_classes = (IsAuthenticated,)
+
+#     def get(self, request):
+#         if roomAvailable(validated_data):
+#                     ...
+#                     instance.save()
+#                 else:
+#                     raise serializers.ValidationError({
+#                         "detail": "Room is not available for these dates."
+#                     })
+#                 return instance
+# def hallAvailableAV(validated_data):
+#     ...
+
+#     bookings = Booking.exclude(
+#         booked_for_datetime__date__gt=validated_data['booked_till_datetime'],
+#     ).exclude(
+#         booked_till_datetime__date__lt=validated_data['booked_for_datetime'],
+#     )
+
+   # return not bookings.exists()
