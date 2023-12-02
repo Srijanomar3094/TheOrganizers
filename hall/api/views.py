@@ -3,9 +3,10 @@ from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics
+from rest_framework.decorators import api_view
 from rest_framework.generics import CreateAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from hall.models import Booking,ConferenceHall,Homepage
+from hall.models import Booking,ConferenceHall,Homepage,HallImage
 from user.models import User_details
 from hall.api.serializers import (BookingSerializer,
                                   HomeSerializer,
@@ -299,3 +300,93 @@ class AOAV(APIView):
 #     )
 
    # return not bookings.exists()
+   
+   
+   
+   
+#    def update(self, instance, validated_data):
+#         contacts_data = validated_data.pop('contacts')
+
+#         instance.name = validated_data.get('name', instance.name)
+#         instance.save()
+
+#         # many contacts
+#         for contact_data in contacts_data:
+#             contact = Contact.objects.get(pk=contact_data['id']) # this will crash if the id is invalid though
+#             contact.name = contact_data.get('name', contact.name)
+#             contact.last_name = contact_data.get('last_name', contact.last_name)
+#             contact.save()
+
+#         return instance
+    
+    
+    
+    
+#     def update(self, instance, validated_data):
+#         images_data = validated_data.pop('images')
+
+#         instance.name = validated_data.get('name', instance.name)
+#         instance.save()
+
+#         # many contacts
+#         for image_data in images_data:
+#             image = HallImage.objects.get(pk=image_data['id']) # this will crash if the id is invalid though
+#             image.image = contact_data.get('name', contact.name)
+#             contact.last_name = contact_data.get('last_name', contact.last_name)
+#             contact.save()
+
+#         return instance
+    
+    
+    
+#     elif request.method == 'PUT':
+#         serializer = SnippetSerializer(snippet, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+
+@api_view(['GET', 'PUT'])
+def hall_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        hall = ConferenceHall.objects.get(pk=pk)
+    except ConferenceHall.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = HallSerializer(hall)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = AOHallSerializer(hall, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+#     @api_view(['GET', 'PUT', 'DELETE'])
+# def snippet_detail(request, pk):
+#     """
+#     Retrieve, update or delete a code snippet.
+#     """
+#     try:
+#         snippet = Snippet.objects.get(pk=pk)
+#     except Snippet.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+
+#     if request.method == 'GET':
+#         serializer = SnippetSerializer(snippet)
+#         return Response(serializer.data)
+
+#     elif request.method == 'PUT':
+#         serializer = SnippetSerializer(snippet, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
