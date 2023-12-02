@@ -1,5 +1,5 @@
 from django.urls import path
-from hall.api.views import AddHallGV,HallOptionsAV,HODAV,AOAV,EmployeeBookAV,HODBookingsAV,AOBookingsAV,HomeAV
+from hall.api.views import AddHallGV,HallOptionsAV,HODAV,AOAV,EmployeeBookAV,HODBookingsAV,AOBookingsAV,HomeAV,HallAV
 
 
 urlpatterns = [
@@ -14,7 +14,8 @@ urlpatterns = [
    path('hodbooking/', HODBookingsAV.as_view(), name='booked'),
    path('aobooked/', AOAV.as_view(), name='new-bookings'),
    path('aobookings/', AOBookingsAV.as_view(), name='booked'),
-  # path('hallavailable',hallAvailableAV.as_view(),name='hall availability check')
+   path('hallavailable/', AOBookingsAV.as_view(), name='booked'),
+   path('aohalls/',HallAV.as_view(),name='hall-details'),
     
     
 ]

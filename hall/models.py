@@ -13,7 +13,7 @@ class ConferenceHall(models.Model):
     
     
 class HallImage(models.Model):
-    hall = models.ForeignKey(ConferenceHall,on_delete=models.SET_NULL, null=True)                
+    hall = models.ForeignKey(ConferenceHall,on_delete=models.SET_NULL, null=True,related_name="images")                
     image = models.ImageField(upload_to='halls')
 
 

@@ -40,6 +40,25 @@ class OptionSerializer(serializers.ModelSerializer):
         model = ConferenceHall
         fields = ['id','name','description']
         
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HallImage
+        fields = ['id','image']
+    
+        
+class AOHallSerializer(serializers.ModelSerializer):
+    images = ImageSerializer(many=True,read_only=True,allow_null=True)
+    class Meta:
+        model = ConferenceHall
+        fields = ['id','name','description','images','eligible_occupancy','booking_days_limit']
+        
+    def update(self, validated_data):
+        images_data = validated_data.pop('images')
+        hall = ConferenceHall.objects.update(**validated_data)
+        for image_data in images_data:
+             HallImage.objects.create(hall=hall, **image_data)
+        return hall
+        
     
 class BookingSerializer(serializers.ModelSerializer):
     employee_details = serializers.ReadOnlyField(source='employee_details.department')

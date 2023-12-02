@@ -13,7 +13,7 @@ from hall.api.serializers import (BookingSerializer,
                                   HallSerializer,
                                   HODSerializer,
                                   OptionSerializer,
-                                  AOSerializer)
+                                  AOHallSerializer)
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from datetime import datetime
@@ -72,6 +72,32 @@ class HallOptionsAV(APIView):
 class AddHallGV(CreateAPIView):
     parser_class = [MultiPartParser, FormParser]
     serializer_class = HallSerializer
+    
+    
+class HallAV(APIView):
+    def get(self, request):
+        if User_details.objects.filter(user=self.request.user,role="ao").exists():
+            new = ConferenceHall.objects.all()
+            
+            serializer = AOHallSerializer(new, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error":"not permitted"})
+        
+
+        
+
+    def put(self, request):
+        if User_details.objects.filter(user=self.request.user,role="ao").exists():
+            serializer = AOHallSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"error":"not permitted"})
+    
     
     
 class HomeAV(APIView):
@@ -209,7 +235,7 @@ class AOAV(APIView):
             return Response({"error":"not permitted"})
 
 
-        
+
         
 # class HODGV(generics.UpdateAPIView):
 #     queryset = Booking.objects.all()
