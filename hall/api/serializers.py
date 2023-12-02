@@ -66,6 +66,12 @@ class BookingSerializer(serializers.ModelSerializer):
         
 class AOBookingSerializer(serializers.ModelSerializer):
     employee_details = serializers.ReadOnlyField(source='employee_details.department')
+    employee = serializers.ReadOnlyField(source='employee.first_name')
+    hall = serializers.ReadOnlyField(source='hall.name')
+    submit_date = serializers.DateTimeField(read_only=True, format="%Y-%m-%d")
+    hod_status_date = serializers.DateTimeField(read_only=True, format="%Y-%m-%d")
+    from_date = serializers.DateTimeField(read_only=True,format="%Y-%m-%dT%H:%M:%S")
+    to_date = serializers.DateTimeField(read_only=True,format="%Y-%m-%dT%H:%M:%S")
 
     class Meta:
         model = Booking
