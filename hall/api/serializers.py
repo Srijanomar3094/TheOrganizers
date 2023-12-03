@@ -116,7 +116,21 @@ class AOSerializer(serializers.ModelSerializer):
 
 
 
+class ImageputSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    image = serializers.CharField()
 
+class AOHallputSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField(max_length=255)
+    description = serializers.CharField()
+    images = ImageSerializer(many=True)
+
+
+class AOputSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConferenceHall
+        fields = '__all__'
 
 
         

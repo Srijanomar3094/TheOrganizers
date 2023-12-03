@@ -14,6 +14,7 @@ from hall.api.serializers import (BookingSerializer,
                                   HallSerializer,
                                   HODSerializer,
                                   OptionSerializer,
+                                  AOHallputSerializer,AOputSerializer,
                                   AOHallSerializer)
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
@@ -88,16 +89,22 @@ class HallAV(APIView):
 
         
 
-    def put(self, request):
-        if User_details.objects.filter(user=self.request.user,role="ao").exists():
-            serializer = AOHallSerializer(data=request.data)
+    def put(self, request, pk):
+        if User_details.objects.filter(user=self.request.user, role="ao").exists():
+            try:
+                booking = ConferenceHall.objects.get(pk=pk)
+            except ConferenceHall.DoesNotExist:
+                return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
+
+            serializer = HallSerializer(booking, data=request.data)
+
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error": "Not permitted"}, status=status.HTTP_403_FORBIDDEN)
     
     
     
@@ -218,22 +225,27 @@ class AOAV(APIView):
             except Booking.DoesNotExist:
                 return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
-            serializer = AOSerializer(book)
+            serializer = AOputSerializer(book)
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
 
     def put(self, request, pk):
-        if User_details.objects.filter(user=self.request.user,role="ao").exists():
-            movie = Booking.objects.get(pk=pk)
-            serializer = AOSerializer(movie, data=request.data)
+        if User_details.objects.filter(user=self.request.user, role="ao").exists():
+            try:
+                booking = Booking.objects.get(pk=pk)
+            except Booking.DoesNotExist:
+                return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
+
+            serializer = AOputSerializer(booking, data=request.data)
+
             if serializer.is_valid():
-                serializer.save(ao=self.request.user,ao_status_date=datetime.now())
+                serializer.save()
                 return Response(serializer.data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error": "Not permitted"}, status=status.HTTP_403_FORBIDDEN)
 
 
 
@@ -390,3 +402,6 @@ def hall_detail(request, pk):
 #             serializer.save()
 #             return Response(serializer.data)
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
