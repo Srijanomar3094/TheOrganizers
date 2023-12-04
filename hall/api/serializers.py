@@ -152,7 +152,7 @@ class AOputSerializer(serializers.ModelSerializer):
 class HallImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = HallImage
-        fields = ('id', 'image', 'status', 'hall')
+        fields = ('id', 'image', 'hall')
 
 class ConferenceHallSerializer(serializers.ModelSerializer):
     images = HallImageSerializer(many=True)
@@ -167,8 +167,8 @@ class ConferenceHallSerializer(serializers.ModelSerializer):
         existing_image_ids = set(instance.images.values_list('id', flat=True))
         new_image_ids = {image_data.get('id', None) for image_data in images_data}
 
-        ids_to_disable = existing_image_ids - new_image_ids
-        ids_to_create = new_image_ids - existing_image_ids
+        ids_disable = existing_image_ids - new_image_ids
+        ids_create = new_image_ids - existing_image_ids
 
         for image_data in images_data:
             image_id = image_data.get('id', None)
@@ -177,10 +177,10 @@ class ConferenceHallSerializer(serializers.ModelSerializer):
                 image_instance.image = image_data.get('image', image_instance.image)
                 image_instance.status = image_data.get('status', image_instance.status)
                 image_instance.save()
-            elif image_id in ids_to_disable:
+            elif image_id in ids_disable:
                 HallImage.objects.filter(id=image_id, hall=instance).update(status=False)
 
-        for image_id in ids_to_create:
+        for image_id in ids_create:
             image_data = next(data for data in images_data if data.get('id') == image_id)
             HallImage.objects.create(hall=instance, **image_data)
 
