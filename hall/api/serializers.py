@@ -1,32 +1,41 @@
 from rest_framework import serializers
 from hall.models import Booking,ConferenceHall,HallImage,Homepage
 from user.models import User_details
+from django.contrib.auth.models import User
 
 class HallImageSerializers(serializers.ModelSerializer):
     class Meta:
         model = HallImage
         fields = "__all__"
         
+        
+class ProfileSerializer(serializers.ModelSerializer):
+    # department = serializers.ReadOnlyField(source='User_details.department')
+    class Meta:
+        model = User
+        fields = ['username','email','first_name','last_name']
+    
+        
 class HallSerializer(serializers.ModelSerializer):
    
-        images =  HallImageSerializers(many=True, read_only=True)
-        uploaded_images = serializers.ListField(
-        child=serializers.ImageField(allow_empty_file=False, use_url=False),
-        write_only=True)
+        #images =  HallImageSerializers(many=True, read_only=True)
+        # uploaded_images = serializers.ListField(
+        # child=serializers.ImageField(allow_empty_file=False, use_url=False),
+        # write_only=True)
         
         class Meta:
             model = ConferenceHall
             fields = "__all__"
 
-        def create(self, validated_data):
-            uploaded_images = validated_data.pop("uploaded_images")
-            hall = ConferenceHall.objects.create(**validated_data)
+        # def create(self, validated_data):
+        #     uploaded_images = validated_data.pop("uploaded_images")
+        #     hall = ConferenceHall.objects.create(**validated_data)
             
 
-            for image in uploaded_images:
-                HallImage.objects.create(hall=hall, image=image)
+        #     for image in uploaded_images:
+        #         HallImage.objects.create(hall=hall, image=image)
 
-            return hall
+        #     return hall
         
         
 class HomeSerializer(serializers.ModelSerializer):
@@ -94,7 +103,7 @@ class AOBookingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Booking
-        fields = ['employee','from_date','to_date',
+        fields = ['id','employee','from_date','to_date',
                   'participants_count','hall','purpose','hod_approval_status',
                   'hod_remark','employee_remark','hod_status_date','submit_date','employee_details']
 
@@ -136,3 +145,49 @@ class AOputSerializer(serializers.ModelSerializer):
         
 
         
+        
+        
+
+
+class HallImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HallImage
+        fields = ('id', 'image', 'status', 'hall')
+
+class ConferenceHallSerializer(serializers.ModelSerializer):
+    images = HallImageSerializer(many=True)
+
+    class Meta:
+        model = ConferenceHall
+        fields = ('id', 'name', 'description', 'eligible_occupancy', 'booking_days_limit', 'images')
+
+    def update(self, instance, validated_data):
+        images_data = validated_data.pop('images', [])
+
+        existing_image_ids = set(instance.images.values_list('id', flat=True))
+        new_image_ids = {image_data.get('id', None) for image_data in images_data}
+
+        ids_to_disable = existing_image_ids - new_image_ids
+        ids_to_create = new_image_ids - existing_image_ids
+
+        for image_data in images_data:
+            image_id = image_data.get('id', None)
+            if image_id in existing_image_ids:
+                image_instance = HallImage.objects.get(id=image_id, hall=instance)
+                image_instance.image = image_data.get('image', image_instance.image)
+                image_instance.status = image_data.get('status', image_instance.status)
+                image_instance.save()
+            elif image_id in ids_to_disable:
+                HallImage.objects.filter(id=image_id, hall=instance).update(status=False)
+
+        for image_id in ids_to_create:
+            image_data = next(data for data in images_data if data.get('id') == image_id)
+            HallImage.objects.create(hall=instance, **image_data)
+
+        instance.name = validated_data.get('name', instance.name)
+        instance.description = validated_data.get('description', instance.description)
+        instance.eligible_occupancy = validated_data.get('eligible_occupancy', instance.eligible_occupancy)
+        instance.booking_days_limit = validated_data.get('booking_days_limit', instance.booking_days_limit)
+        instance.save()
+
+        return instance

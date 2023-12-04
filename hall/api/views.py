@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.decorators import api_view
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView,ListAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from hall.models import Booking,ConferenceHall,Homepage,HallImage
 from user.models import User_details
@@ -14,7 +14,9 @@ from hall.api.serializers import (BookingSerializer,
                                   HallSerializer,
                                   HODSerializer,
                                   OptionSerializer,
-                                  AOHallputSerializer,AOputSerializer,
+                                  AOputSerializer,
+                                  ConferenceHallSerializer,
+                                  ProfileSerializer,
                                   AOHallSerializer)
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
@@ -57,7 +59,13 @@ from datetime import datetime
 #             else:
 #                 return Response(serializer.errors)
 #         else:
-#             return Response({"error":"not permitted"})   
+#             return Response({"error":"not permitted"})  
+
+
+
+    
+    
+ 
 
 class HallOptionsAV(APIView):
     permission_classes = (IsAuthenticated,)
@@ -69,11 +77,16 @@ class HallOptionsAV(APIView):
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
-
-
+        
 class AddHallGV(CreateAPIView):
     parser_class = [MultiPartParser, FormParser]
     serializer_class = HallSerializer
+    
+    
+    
+class ProfileGV(ListAPIView):
+    serializer_class = ProfileSerializer
+    
     
     
 class HallAV(APIView):
@@ -90,12 +103,13 @@ class HallAV(APIView):
         
 
     def put(self, request, pk):
+        
         if User_details.objects.filter(user=self.request.user, role="ao").exists():
             try:
                 booking = ConferenceHall.objects.get(pk=pk)
             except ConferenceHall.DoesNotExist:
                 return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
-
+            
             serializer = HallSerializer(booking, data=request.data)
 
             if serializer.is_valid():
@@ -105,6 +119,8 @@ class HallAV(APIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({"error": "Not permitted"}, status=status.HTTP_403_FORBIDDEN)
+        
+        
     
     
     
@@ -405,3 +421,15 @@ def hall_detail(request, pk):
 
 
 
+
+
+class ConferenceHallUpdateView(generics.UpdateAPIView):
+    queryset = ConferenceHall.objects.all()
+    serializer_class = ConferenceHallSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
