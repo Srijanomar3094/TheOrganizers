@@ -18,24 +18,24 @@ class ProfileSerializer(serializers.ModelSerializer):
         
 class HallSerializer(serializers.ModelSerializer):
    
-        #images =  HallImageSerializers(many=True, read_only=True)
-        # uploaded_images = serializers.ListField(
-        # child=serializers.ImageField(allow_empty_file=False, use_url=False),
-        # write_only=True)
+        images =  HallImageSerializers(many=True, read_only=True)
+        uploaded_images = serializers.ListField(
+        child=serializers.ImageField(allow_empty_file=False, use_url=False),
+        write_only=True)
         
         class Meta:
             model = ConferenceHall
             fields = "__all__"
 
-        # def create(self, validated_data):
-        #     uploaded_images = validated_data.pop("uploaded_images")
-        #     hall = ConferenceHall.objects.create(**validated_data)
+        def create(self, validated_data):
+            uploaded_images = validated_data.pop("uploaded_images")
+            hall = ConferenceHall.objects.create(**validated_data)
             
 
-        #     for image in uploaded_images:
-        #         HallImage.objects.create(hall=hall, image=image)
+            for image in uploaded_images:
+                HallImage.objects.create(hall=hall, image=image)
 
-        #     return hall
+            return hall
         
         
 class HomeSerializer(serializers.ModelSerializer):
@@ -51,7 +51,7 @@ class OptionSerializer(serializers.ModelSerializer):
         
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = HallImage
+        model = HallImage.objects.exclude(status=False)
         fields = ['id','image']
     
         
@@ -67,15 +67,42 @@ class AOHallSerializer(serializers.ModelSerializer):
         for image_data in images_data:
              HallImage.objects.update(hall=hall, **image_data)
         return hall
+    
+    
+        
+# class AOUpdateSerializer(serializers.ModelSerializer):
+#     images = ImageSerializer(many=True,read_only=True,allow_null=True)
+#     class Meta:
+#         model = ConferenceHall
+#         fields = ('id', 'name', 'description', 'eligible_occupancy', 'booking_days_limit', 'images',)
+        
+#     def update(self, validated_data):
+#         images_data = validated_data.pop('images')
+#         hall = ConferenceHall.objects.update(**validated_data)
+#         for image_data in images_data:
+#              HallImage.objects.update(hall=hall, **image_data)
+#         return hall
         
     
 class BookingSerializer(serializers.ModelSerializer):
-    employee_details = serializers.ReadOnlyField(source='employee_details.department')
-    
+ 
+  
+    hall = serializers.ReadOnlyField(source='hall.name')
     class Meta:
         model = Booking
         fields = ['employee','from_date','to_date',
-                  'participants_count','hall','purpose','employee_remark','employee_details']
+                  'participants_count','hall','purpose','employee_remark','department']
+        
+class BookingGetSerializer(serializers.ModelSerializer):
+    department = serializers.ReadOnlyField(source='employee_details.department')
+    employee = serializers.ReadOnlyField(source='employee.first_name')
+    from_date = serializers.DateTimeField(read_only=True,format="%Y-%m-%dT%H:%M:%S")
+    to_date = serializers.DateTimeField(read_only=True,format="%Y-%m-%dT%H:%M:%S")
+    hall = serializers.ReadOnlyField(source='hall.name')
+    class Meta:
+        model = Booking
+        fields = ['id','employee','from_date','to_date',
+                  'participants_count','hall','purpose','employee_remark','department']
  
  
         
@@ -113,7 +140,7 @@ class AOBookingSerializer(serializers.ModelSerializer):
 class HODSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ['hod_remark','hod_approval_status']
+        fields = ['hod_approval_status']
         
         
 class AOSerializer(serializers.ModelSerializer):
@@ -191,3 +218,89 @@ class ConferenceHallSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+
+
+# what basically i want to do is i am making a update APIView for all the data of conference hall i will update it but for images i will get array of ids to keep rest all ids need to be status false but for new images create function with for loop needs to be executed
+
+
+# class AOUpdateSerializer(serializers.ModelSerializer):
+#     images = ImageSerializer(many=True, read_only=True)
+#     uploaded_images = serializers.ListField(
+#         child=serializers.ImageField(allow_empty_file=False, use_url=False),
+#         write_only=True,
+#         required=False  # Marking this field as not required since it's for new images
+#     )
+
+#     class Meta:
+#         model = ConferenceHall
+#         fields = ('id', 'name', 'description', 'eligible_occupancy', 'booking_days_limit', 'images', 'uploaded_images')
+
+#     def update(self, instance, validated_data):
+#         uploaded_images = validated_data.pop("uploaded_images", [])
+#         instance = super().update(instance, validated_data)
+
+#         # Deactivate existing images not in uploaded_images
+#         existing_image_ids = instance.images.values_list('id', flat=True)
+#         deactivated_image_ids = set(existing_image_ids) - set(uploaded_images)
+#         HallImage.objects.filter(id__in=deactivated_image_ids, hall=instance).update(status=False)
+
+#         # Create new images
+#         for image in uploaded_images:
+#             HallImage.objects.create(hall=instance, image=image)
+
+#         return instance
+
+
+
+class AOUpdateSerializer(serializers.ModelSerializer):
+    images = ImageSerializer(many=True, read_only=True)
+    uploaded_images = serializers.ListField(
+        child=serializers.ImageField(allow_empty_file=False, use_url=False),
+        write_only=True,
+        required=False
+    )
+
+    class Meta:
+        model = ConferenceHall
+        fields = ('id', 'name', 'description', 'eligible_occupancy', 'booking_days_limit', 'images', 'uploaded_images')
+
+   
+    # def update(self, instance, validated_data):
+    #     uploaded_images = validated_data.pop("uploaded_images", [])
+    #     instance = super().update(instance, validated_data)
+
+    #     instance.images.exclude(id__in=uploaded_images).update(status=False)
+
+    #     for image in uploaded_images:
+    #         HallImage.objects.create(hall=instance, image=image)
+
+    #     return instance
+    
+    
+
+
+    def update(self, instance, validated_data):
+        uploaded_images = validated_data.pop("uploaded_images", [])
+        image_ids = validated_data.pop("image_ids", [])
+
+    
+        instance.images.exclude(id__in=uploaded_images).update(status=False)
+
+
+        instance.images.filter(id__in=image_ids).update(status=True)
+
+
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+
+        instance.save()
+
+    
+        for image in uploaded_images:
+            HallImage.objects.create(hall=instance, image=image, status=True)
+
+        return instance
+
+

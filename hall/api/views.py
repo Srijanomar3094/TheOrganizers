@@ -10,13 +10,8 @@ from hall.models import Booking,ConferenceHall,Homepage,HallImage
 from user.models import User_details
 from hall.api.serializers import (BookingSerializer,
                                   HomeSerializer,
-                                  AOBookingSerializer,
-                                  HallSerializer,
-                                  HODSerializer,
-                                  OptionSerializer,
-                                  AOputSerializer,
-                                  ConferenceHallSerializer,
-                                  ProfileSerializer,
+                                  AOBookingSerializer,HallSerializer,ProfileSerializer,AOUpdateSerializer,
+                                  HODSerializer, OptionSerializer,AOputSerializer,ConferenceHallSerializer,BookingGetSerializer,
                                   AOHallSerializer)
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
@@ -153,7 +148,7 @@ class EmployeeBookAV(APIView):
     def get(self, request):
         if User_details.objects.filter(user=self.request.user,role="employee").exists():
             new = Booking.objects.all()
-            serializer = BookingSerializer(new, many=True)
+            serializer = BookingGetSerializer(new, many=True)
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
@@ -183,7 +178,7 @@ class HODBookingsAV(APIView):
     def get(self, request):
         if User_details.objects.filter(user=self.request.user,role="hod").exists():
             new = Booking.objects.filter(hod_approval_status__isnull=True).all()
-            serializer = BookingSerializer(new, many=True)
+            serializer = BookingGetSerializer(new, many=True)
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
@@ -423,18 +418,64 @@ def hall_detail(request, pk):
 
 
 
-class ConferenceHallUpdateView(generics.UpdateAPIView):
-    queryset = ConferenceHall.objects.all()
-    serializer_class = ConferenceHallSerializer
+# class ConferenceHallUpdateView(generics.UpdateAPIView):
+#     queryset = ConferenceHall.objects.all()
+#     serializer_class = ConferenceHallSerializer
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)           
-        self.perform_update(serializer)
-        return Response(serializer.data)
+#     def update(self, request, *args, **kwargs):
+#         instance = self.get_object()
+#         serializer = self.get_serializer(instance, data=request.data, partial=True)
+#         serializer.is_valid(raise_exception=True)           
+#         self.perform_update(serializer)
+#         return Response(serializer.data)
     
     
+    
+    #  def put(self, request, pk):
+    #     movie = WatchList.objects.get(pk=pk)
+    #     serializer = WatchListSerializer(movie, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     else:
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
+# class ConferenceHallUpdateView(APIView):
+#     queryset = ConferenceHall.objects.all()
+#     serializer_class = AOUpdateSerializer
+#     parser_class = [MultiPartParser, FormParser]
 
+#     def update(self, request, *args, **kwargs):
+#         instance = self.get_object()
+#         imageids=instance.pop("imageids")
+#         hallid=instance.pop("hall")
+#         for imageid in imageids:
+        
+#             HallImage.objects.filter(hall=hallid).exclude(id=imageid).update(status=False)
+#             if HallImage.objects.filter(id=imageid,hall=hallid).exists():
+#                 pass
+#             else:
+#                 AOUpdateSerializer.save(status=True)
+            
+            
+ 
 
+class ConferenceHallUpdateView(APIView):
+    def get_object(self, pk):
+        try:
+            return ConferenceHall.objects.get(pk=pk)
+        except ConferenceHall.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        serializer = AOUpdateSerializer(instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            
+        
+    

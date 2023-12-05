@@ -17,10 +17,10 @@ urlpatterns = [
    path('aobooked/', AOAV.as_view(), name='new-bookings'),
    path('aobookings/', AOBookingsAV.as_view(), name='booked'),
    path('hallavailable/', AOBookingsAV.as_view(), name='booked'),
-   path('aohalls<int:pk>/',HallAV.as_view(),name='hall-details'),
+   path('aohalls/',HallAV.as_view(),name='hall-details'),
   # path('hall/<int:pk>/', views.hall_detail),
-  path('conference-hall/<int:pk>/', ConferenceHallUpdateView.as_view(), name='conference-hall-update'),
-    
-    
+   path('conference-hall/<int:pk>/', ConferenceHallUpdateView.as_view(), name='conference-hall-update'),
+   
+        
 ]
 
