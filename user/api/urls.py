@@ -4,11 +4,9 @@ from user.api.views import (registration_view,
 
 from rest_framework_simplejwt.views import (TokenRefreshView,
                                             TokenBlacklistView,TokenObtainPairView)
-#from .serializers import MyTokenObtainView
 
 
 urlpatterns = [
-    # path('api/login_token/', MyTokenObtainView.as_view(), name='token_obtain_pair'),
     path('api/login_token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', registration_view, name='register'),

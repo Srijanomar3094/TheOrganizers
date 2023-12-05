@@ -14,7 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 def BlacklistRefreshView(request):
         token = RefreshToken(request.data.get('refresh'))
         token.blacklist()
-        return Response("Success")
+        return Response({"message":"Success"})
 
 
 @api_view(['POST',])
@@ -58,6 +58,26 @@ class LogoutAllView(APIView):
             t, _ = BlacklistedToken.objects.get_or_create(token=token)
 
         return Response(status=status.HTTP_205_RESET_CONTENT)    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 # class MyLogin(TokenObtainPairSerializer):
 #     username_field = 'email'

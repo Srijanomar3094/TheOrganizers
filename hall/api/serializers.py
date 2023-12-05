@@ -140,7 +140,7 @@ class AOBookingSerializer(serializers.ModelSerializer):
 class HODSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ['hod_approval_status']
+        fields = ['hod_remark','hod_approval_status']
         
         
 class AOSerializer(serializers.ModelSerializer):

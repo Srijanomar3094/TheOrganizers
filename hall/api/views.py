@@ -10,7 +10,7 @@ from hall.models import Booking,ConferenceHall,Homepage,HallImage
 from user.models import User_details
 from hall.api.serializers import (BookingSerializer,
                                   HomeSerializer,
-                                  AOBookingSerializer,HallSerializer,ProfileSerializer,AOUpdateSerializer,
+                                  AOBookingSerializer,HallSerializer,ProfileSerializer,AOUpdateSerializer,AOSerializer,
                                   HODSerializer, OptionSerializer,AOputSerializer,ConferenceHallSerializer,BookingGetSerializer,
                                   AOHallSerializer)
 from rest_framework.permissions import IsAuthenticated
@@ -62,6 +62,19 @@ from datetime import datetime
     
  
 
+
+        
+class AddHallGV(CreateAPIView):
+    parser_class = [MultiPartParser, FormParser]
+    serializer_class = HallSerializer
+    
+    
+    
+class ProfileGV(ListAPIView):
+    serializer_class = ProfileSerializer
+    
+  
+  
 class HallOptionsAV(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -73,16 +86,7 @@ class HallOptionsAV(APIView):
         else:
             return Response({"error":"not permitted"})
         
-class AddHallGV(CreateAPIView):
-    parser_class = [MultiPartParser, FormParser]
-    serializer_class = HallSerializer
-    
-    
-    
-class ProfileGV(ListAPIView):
-    serializer_class = ProfileSerializer
-    
-    
+            
     
 class HallAV(APIView):
     def get(self, request):
@@ -182,6 +186,19 @@ class HODBookingsAV(APIView):
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
+        
+        
+class HODBookedAV(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        if User_details.objects.filter(user=self.request.user,role="hod").exists():
+            new = Booking.objects.filter(hod_approval_status=True).all()
+            serializer = BookingGetSerializer(new, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error":"not permitted"})
+        
 
 
 class HODAV(APIView):
@@ -208,6 +225,7 @@ class HODAV(APIView):
                 serializer.save(hod=self.request.user,hod_status_date=datetime.now())
                 return Response(serializer.data)
             else:
+    
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response({"error":"not permitted"})
@@ -219,7 +237,19 @@ class AOBookingsAV(APIView):
 
     def get(self, request):
         if User_details.objects.filter(user=self.request.user,role="ao").exists():
-            new = Booking.objects.filter(ao_approval_status__isnull=True).all()
+            new = Booking.objects.filter(ao_approval_status__isnull=True,hod_approval_status=True).all()
+            serializer = AOBookingSerializer(new, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error":"not permitted"})
+        
+class AOBookedAV(APIView):
+    
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        if User_details.objects.filter(user=self.request.user,role="ao").exists():
+            new = Booking.objects.filter(ao_approval_status=True,hod_approval_status=True).all()
             serializer = AOBookingSerializer(new, many=True)
             return Response(serializer.data)
         else:
@@ -232,7 +262,7 @@ class AOAV(APIView):
     def get(self, request, pk):
         if User_details.objects.filter(user=self.request.user,role="ao").exists():
             try:
-                book = Booking.objects.get(pk=pk)
+                book = Booking.objects.get(pk=pk,hod_approval_status=True)
             except Booking.DoesNotExist:
                 return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
@@ -248,10 +278,10 @@ class AOAV(APIView):
             except Booking.DoesNotExist:
                 return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
 
-            serializer = AOputSerializer(booking, data=request.data)
+            serializer = AOSerializer(booking, data=request.data)
 
             if serializer.is_valid():
-                serializer.save()
+                serializer.save(ao=self.request.user,ao_status_date=datetime.now())
                 return Response(serializer.data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
