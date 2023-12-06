@@ -9,11 +9,23 @@ class HallImageSerializers(serializers.ModelSerializer):
         fields = "__all__"
         
         
-class ProfileSerializer(serializers.ModelSerializer):
-    # department = serializers.ReadOnlyField(source='User_details.department')
+class UserSerializers(serializers.ModelSerializer):
+    #department = serializers.ReadOnlyField(source='employee_details.department')
+    
     class Meta:
         model = User
         fields = ['username','email','first_name','last_name']
+        
+class ProfileSerializer(serializers.ModelSerializer):
+    username = UserSerializers(read_only=True,many=True)
+    email = UserSerializers(read_only=True,many=True)
+    first_name = UserSerializers(read_only=True,many=True)
+    last_name = UserSerializers(read_only=True,many=True)
+    class Meta:
+        model = User_details
+        fields = ['username','email','first_name','last_name','department']
+        
+        
     
         
 class HallSerializer(serializers.ModelSerializer):
@@ -61,12 +73,12 @@ class AOHallSerializer(serializers.ModelSerializer):
         model = ConferenceHall
         fields = ['id','name','description','images']
         
-    def update(self, validated_data):
-        images_data = validated_data.pop('images')
-        hall = ConferenceHall.objects.update(**validated_data)
-        for image_data in images_data:
-             HallImage.objects.update(hall=hall, **image_data)
-        return hall
+    # def update(self, validated_data):
+    #     images_data = validated_data.pop('images')
+    #     hall = ConferenceHall.objects.update(**validated_data)
+    #     for image_data in images_data:
+    #          HallImage.objects.update(hall=hall, **image_data)
+    #     return hall
     
     
         
@@ -85,15 +97,14 @@ class AOHallSerializer(serializers.ModelSerializer):
         
     
 class BookingSerializer(serializers.ModelSerializer):
- 
+    
   
-    hall = serializers.ReadOnlyField(source='hall.name')
     class Meta:
         model = Booking
         fields = ['employee','from_date','to_date',
-                  'participants_count','hall','purpose','employee_remark','department']
+                  'participants_count','hall','purpose','employee_remark']
         
-class BookingGetSerializer(serializers.ModelSerializer):
+class NewBookingGetSerializer(serializers.ModelSerializer):
     department = serializers.ReadOnlyField(source='employee_details.department')
     employee = serializers.ReadOnlyField(source='employee.first_name')
     from_date = serializers.DateTimeField(read_only=True,format="%Y-%m-%dT%H:%M:%S")
@@ -102,8 +113,31 @@ class BookingGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
         fields = ['id','employee','from_date','to_date',
-                  'participants_count','hall','purpose','employee_remark','department']
- 
+                  'participants_count','hall','purpose','employee_remark','department','hod_approval_status','ao_approval_status']
+        
+        
+class BookingsGetSerializer(serializers.ModelSerializer):
+    department = serializers.ReadOnlyField(source='employee_details.department')
+    employee = serializers.ReadOnlyField(source='employee.first_name')
+    from_date = serializers.DateTimeField(read_only=True,format="%Y-%m-%dT%H:%M:%S")
+    to_date = serializers.DateTimeField(read_only=True,format="%Y-%m-%dT%H:%M:%S")
+    hall = serializers.ReadOnlyField(source='hall.name')
+    class Meta:
+        model = Booking
+        fields = ['id','employee','from_date','to_date',
+                  'participants_count','hall','purpose','department','ao_approval_status','employee_remark']
+        
+        
+class ALLBookingGetSerializer(serializers.ModelSerializer):
+    department = serializers.ReadOnlyField(source='employee_details.department')
+    employee = serializers.ReadOnlyField(source='employee.first_name')
+    from_date = serializers.DateTimeField(read_only=True,format="%Y-%m-%dT%H:%M:%S")
+    to_date = serializers.DateTimeField(read_only=True,format="%Y-%m-%dT%H:%M:%S")
+    hall = serializers.ReadOnlyField(source='hall.name')
+    class Meta:
+        model = Booking
+        fields = ['id','employee','from_date','to_date',
+                  'participants_count','hall','employee_remark','department','hod_approval_status','ao_approval_status']
  
         
 # class DepartmentSerializer(serializers.ModelSerializer):
@@ -252,6 +286,19 @@ class ConferenceHallSerializer(serializers.ModelSerializer):
 
 #         return instance
 
+# serializers.py
+
+class HallImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HallImage
+        fields = ['id', 'image', 'status']
+
+class NewHallUpdateSerializer(serializers.ModelSerializer):
+    images = HallImageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = ConferenceHall
+        fields = ['id', 'name', 'description', 'eligible_occupancy', 'booking_days_limit', 'images']
 
 
 class AOUpdateSerializer(serializers.ModelSerializer):

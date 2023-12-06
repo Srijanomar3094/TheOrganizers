@@ -10,8 +10,8 @@ from hall.models import Booking,ConferenceHall,Homepage,HallImage
 from user.models import User_details
 from hall.api.serializers import (BookingSerializer,
                                   HomeSerializer,
-                                  AOBookingSerializer,HallSerializer,ProfileSerializer,AOUpdateSerializer,AOSerializer,
-                                  HODSerializer, OptionSerializer,AOputSerializer,ConferenceHallSerializer,BookingGetSerializer,
+                                  AOBookingSerializer,HallSerializer,ProfileSerializer,AOUpdateSerializer,AOSerializer,ALLBookingGetSerializer,NewBookingGetSerializer,
+                                  HODSerializer, OptionSerializer,AOputSerializer,ConferenceHallSerializer,BookingsGetSerializer,NewHallUpdateSerializer,
                                   AOHallSerializer)
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
@@ -70,8 +70,18 @@ class AddHallGV(CreateAPIView):
     
     
     
-class ProfileGV(ListAPIView):
-    serializer_class = ProfileSerializer
+class ProfileAV(APIView):
+   # permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        if User_details.objects.filter(user=self.request.user,role="employee").exists():
+            print(self.request.user.id)
+            new = User_details.objects.filter(user=self.request.user.id)
+            print(new)
+            serializer = ProfileSerializer(new, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error":"not permitted"})
     
   
   
@@ -89,11 +99,12 @@ class HallOptionsAV(APIView):
             
     
 class HallAV(APIView):
+    permission_classes = (IsAuthenticated,)
     def get(self, request):
+        
         if User_details.objects.filter(user=self.request.user,role="ao").exists():
-            new = ConferenceHall.objects.all()
             
-            serializer = AOHallSerializer(new, many=True)
+            serializer = AOHallSerializer(many=True)
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
@@ -101,23 +112,23 @@ class HallAV(APIView):
 
         
 
-    def put(self, request, pk):
+    # def put(self, request, pk):
         
-        if User_details.objects.filter(user=self.request.user, role="ao").exists():
-            try:
-                booking = ConferenceHall.objects.get(pk=pk)
-            except ConferenceHall.DoesNotExist:
-                return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
+    #     if User_details.objects.filter(user=self.request.user, role="ao").exists():
+    #         try:
+    #             booking = ConferenceHall.objects.get(pk=pk)
+    #         except ConferenceHall.DoesNotExist:
+    #             return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
             
-            serializer = HallSerializer(booking, data=request.data)
+    #         serializer = HallSerializer(booking, data=request.data)
 
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({"error": "Not permitted"}, status=status.HTTP_403_FORBIDDEN)
+    #         if serializer.is_valid():
+    #             serializer.save()
+    #             return Response(serializer.data)
+    #         else:
+    #             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     else:
+    #         return Response({"error": "Not permitted"}, status=status.HTTP_403_FORBIDDEN)
         
         
     
@@ -152,7 +163,7 @@ class EmployeeBookAV(APIView):
     def get(self, request):
         if User_details.objects.filter(user=self.request.user,role="employee").exists():
             new = Booking.objects.all()
-            serializer = BookingGetSerializer(new, many=True)
+            serializer = BookingsGetSerializer(new, many=True)
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
@@ -166,7 +177,7 @@ class EmployeeBookAV(APIView):
                 serializer.save(employee=user_id,employee_details=details)
                 
                 
-                return Response(serializer.data)
+                return Response({"message":"booked"})
             else:
                 return Response(serializer.errors)
         else:
@@ -182,7 +193,20 @@ class HODBookingsAV(APIView):
     def get(self, request):
         if User_details.objects.filter(user=self.request.user,role="hod").exists():
             new = Booking.objects.filter(hod_approval_status__isnull=True).all()
-            serializer = BookingGetSerializer(new, many=True)
+            serializer = NewBookingGetSerializer(new, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({"error":"not permitted"})
+        
+        
+class HODAllBookingsAV(APIView):
+    
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        if User_details.objects.filter(user=self.request.user,role="hod").exists():
+            new = Booking.objects.filter(hod_approval_status__isnull=False).all()
+            serializer = ALLBookingGetSerializer(new, many=True)
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
@@ -194,7 +218,7 @@ class HODBookedAV(APIView):
     def get(self, request):
         if User_details.objects.filter(user=self.request.user,role="hod").exists():
             new = Booking.objects.filter(hod_approval_status=True).all()
-            serializer = BookingGetSerializer(new, many=True)
+            serializer = BookingsGetSerializer(new, many=True)
             return Response(serializer.data)
         else:
             return Response({"error":"not permitted"})
@@ -290,162 +314,68 @@ class AOAV(APIView):
 
 
 
+    
+    
+class HallDetailAV(APIView):
+
+    def put(request, pk):
         
-# class HODGV(generics.UpdateAPIView):
-#     queryset = Booking.objects.all()
-#     serializer_class = HODSerializer
-
-# @api_view(['GET', 'POST'])
-# def add_hall(request):
-
-#     if request.method == 'GET':
-#         new = ConferenceHall.objects.all()
-#         serializer = HallSerializer(new, many=True)
-#         return Response(serializer.data)
-
-#     if request.method == 'POST':
-#         serializer = HallSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         else:
-#             return Response(serializer.errors)
-
-
+        try:
+            hall = ConferenceHall.objects.get(pk=pk)
+        except ConferenceHall.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
         
-# @api_view(['GET', 'POST'])
-
-# def new_booking(request):
-
-#     if request.method == 'GET':
-#             new = Booking.objects.all()
-#             serializer = BookingSerializer(new, many=True)
-#             return Response(serializer.data)
-       
-
-#     if request.method == 'POST':
-#             serializer = BookingSerializer(data=request.data)
-#             if serializer.is_valid():
-#                 serializer.save()
-#                 return Response(serializer.data)
-#             else:
-#                 return Response(serializer.errors)
-# class AO(APIView):
-    
-#     permission_classes = (IsAuthenticated,)
-
-#     def get(self, request):
-#         if roomAvailable(validated_data):
-#                     ...
-#                     instance.save()
-#                 else:
-#                     raise serializers.ValidationError({
-#                         "detail": "Room is not available for these dates."
-#                     })
-#                 return instance
-# def hallAvailableAV(validated_data):
-#     ...
-
-#     bookings = Booking.exclude(
-#         booked_for_datetime__date__gt=validated_data['booked_till_datetime'],
-#     ).exclude(
-#         booked_till_datetime__date__lt=validated_data['booked_for_datetime'],
-#     )
-
-   # return not bookings.exists()
-   
-   
-   
-   
-#    def update(self, instance, validated_data):
-#         contacts_data = validated_data.pop('contacts')
-
-#         instance.name = validated_data.get('name', instance.name)
-#         instance.save()
-
-#         # many contacts
-#         for contact_data in contacts_data:
-#             contact = Contact.objects.get(pk=contact_data['id']) # this will crash if the id is invalid though
-#             contact.name = contact_data.get('name', contact.name)
-#             contact.last_name = contact_data.get('last_name', contact.last_name)
-#             contact.save()
-
-#         return instance
-    
-    
-    
-    
-#     def update(self, instance, validated_data):
-#         images_data = validated_data.pop('images')
-
-#         instance.name = validated_data.get('name', instance.name)
-#         instance.save()
-
-#         # many contacts
-#         for image_data in images_data:
-#             image = HallImage.objects.get(pk=image_data['id']) # this will crash if the id is invalid though
-#             image.image = contact_data.get('name', contact.name)
-#             contact.last_name = contact_data.get('last_name', contact.last_name)
-#             contact.save()
-
-#         return instance
-    
-    
-    
-#     elif request.method == 'PUT':
-#         serializer = SnippetSerializer(snippet, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-
-@api_view(['GET', 'PUT'])
-def hall_detail(request, pk):
-    """
-    Retrieve, update or delete a code snippet.
-    """
-    try:
-        hall = ConferenceHall.objects.get(pk=pk)
-    except ConferenceHall.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = HallSerializer(hall)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
         serializer = AOHallSerializer(hall, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-#     @api_view(['GET', 'PUT', 'DELETE'])
-# def snippet_detail(request, pk):
-#     """
-#     Retrieve, update or delete a code snippet.
-#     """
-#     try:
-#         snippet = Snippet.objects.get(pk=pk)
-#     except Snippet.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-
-#     if request.method == 'GET':
-#         serializer = SnippetSerializer(snippet)
-#         return Response(serializer.data)
-
-#     elif request.method == 'PUT':
-#         serializer = SnippetSerializer(snippet, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+    def get(request,pk):
+        try:
+            hall = ConferenceHall.objects.get(pk=pk)
+        except ConferenceHall.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = HallSerializer(hall)
+        return Response(serializer.data)
 
+      
+
+
+class UpdateConferenceHallView(APIView):
+    def get_queryset(self, pk):
+        return ConferenceHall.objects.filter(pk=pk)
+
+    def get_object(self, pk):
+        try:
+            return self.get_queryset(pk).get()
+        except ConferenceHall.DoesNotExist:
+            return None
+
+    def put(self, request, pk, format=None):
+        hall = self.get_object(pk)
+
+        if hall is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = NewHallUpdateSerializer(hall, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            
+            image_ids = [int(id) for id in request.data.get('image_ids', [])]
+            print(image_ids)
+            for image in hall.images.all():
+                image.status = image.id in image_ids
+                image.save()
+
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+  
+   
 
 
 # class ConferenceHallUpdateView(generics.UpdateAPIView):
