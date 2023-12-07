@@ -82,7 +82,7 @@ class ProfileAV(APIView):
             serializer = ProfileSerializer(new, many=True)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
     
   
   
@@ -95,7 +95,7 @@ class HallOptionsAV(APIView):
             serializer = OptionSerializer(new, many=True)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
         
             
     
@@ -104,11 +104,11 @@ class HallAV(APIView):
     def get(self, request):
         
         if User_details.objects.filter(user=self.request.user,role="ao").exists():
-            
-            serializer = AOHallSerializer(many=True)
+            new = ConferenceHall.objects.all()
+            serializer = AOHallSerializer(new,many=True)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
         
 
         
@@ -154,7 +154,7 @@ class HomeAV(APIView):
             serializer = HomeSerializer(fields, many=True)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
         
          
 class EmployeeBookAV(APIView):
@@ -197,7 +197,7 @@ class HODBookingsAV(APIView):
             serializer = NewBookingGetSerializer(new, many=True)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
         
         
 class HODAllBookingsAV(APIView):
@@ -210,7 +210,7 @@ class HODAllBookingsAV(APIView):
             serializer = ALLBookingGetSerializer(new, many=True)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
         
         
 class HODBookedAV(APIView):
@@ -222,7 +222,7 @@ class HODBookedAV(APIView):
             serializer = BookingsGetSerializer(new, many=True)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
         
 
 
@@ -240,7 +240,7 @@ class HODAV(APIView):
             serializer = HODSerializer(book)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
 
     def put(self, request, pk):
         if User_details.objects.filter(user=self.request.user,role="hod").exists():
@@ -253,7 +253,7 @@ class HODAV(APIView):
     
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
         
 
 class AOBookingsAV(APIView):
@@ -266,7 +266,7 @@ class AOBookingsAV(APIView):
             serializer = AOBookingSerializer(new, many=True)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
         
 class AOBookedAV(APIView):
     
@@ -278,11 +278,12 @@ class AOBookedAV(APIView):
             serializer = AOBookingSerializer(new, many=True)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
         
          
 class AOAV(APIView):
     permission_classes = (IsAuthenticated,)
+    
     
     def get(self, request, pk):
         if User_details.objects.filter(user=self.request.user,role="ao").exists():
@@ -294,7 +295,7 @@ class AOAV(APIView):
             serializer = AOputSerializer(book)
             return Response(serializer.data)
         else:
-            return Response({"error":"not permitted"})
+            return Response({"error":"not permitted"},status=401)
 
     def put(self, request, pk):
         if User_details.objects.filter(user=self.request.user, role="ao").exists():
@@ -372,8 +373,19 @@ class UpdateConferenceHallView(APIView):
                 image.save()
 
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+       
+        
+        
+        uploaded_images = [int(id) for id in request.Files.get('uploaded_images', [])]
+        
 
+
+
+    
+        for image in uploaded_images:
+            HallImage.objects.create(hall=hall, image=image, status=True)
+
+        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 # class Update(APIView):
     
@@ -479,6 +491,7 @@ class UpdateConferenceHallView(APIView):
  
 
 class ConferenceHallUpdateView(APIView):
+    parser_class = [MultiPartParser, FormParser]
     def get_object(self, pk):
         try:
             return ConferenceHall.objects.get(pk=pk)
