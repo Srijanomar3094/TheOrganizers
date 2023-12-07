@@ -30,6 +30,6 @@ urlpatterns = [
 
    path('conference-hall/<int:pk>/', UpdateConferenceHallView.as_view(), name='update_conference_hall'),
    
-        
+    
 ]
 

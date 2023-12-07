@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.decorators import api_view
-from rest_framework.generics import CreateAPIView,ListAPIView
+from rest_framework.generics import CreateAPIView,ListAPIView,UpdateAPIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from hall.models import Booking,ConferenceHall,Homepage,HallImage
 from user.models import User_details
@@ -69,6 +69,7 @@ class AddHallGV(CreateAPIView):
     serializer_class = HallSerializer
     
     
+
     
 class ProfileAV(APIView):
    # permission_classes = (IsAuthenticated,)
@@ -118,7 +119,7 @@ class HallAV(APIView):
     #         try:
     #             booking = ConferenceHall.objects.get(pk=pk)
     #         except ConferenceHall.DoesNotExist:
-    #             return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
+    #             return Response({"error": "Booking not found"}, status=status.HTTP_406_NOT_ACCEPTABLE)
             
     #         serializer = HallSerializer(booking, data=request.data)
 
@@ -234,7 +235,7 @@ class HODAV(APIView):
             try:
                 book = Booking.objects.get(pk=pk)
             except Booking.DoesNotExist:
-                return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'error': 'Not found'}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
             serializer = HODSerializer(book)
             return Response(serializer.data)
@@ -288,7 +289,7 @@ class AOAV(APIView):
             try:
                 book = Booking.objects.get(pk=pk,hod_approval_status=True)
             except Booking.DoesNotExist:
-                return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'error': 'Not found'}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
             serializer = AOputSerializer(book)
             return Response(serializer.data)
@@ -300,7 +301,7 @@ class AOAV(APIView):
             try:
                 booking = Booking.objects.get(pk=pk)
             except Booking.DoesNotExist:
-                return Response({"error": "Booking not found"}, status=status.HTTP_404_NOT_FOUND)
+                return Response({"error": "Booking not found"}, status=status.HTTP_406_NOT_ACCEPTABLE)
 
             serializer = AOSerializer(booking, data=request.data)
 
@@ -323,7 +324,7 @@ class HallDetailAV(APIView):
         try:
             hall = ConferenceHall.objects.get(pk=pk)
         except ConferenceHall.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
         
         serializer = AOHallSerializer(hall, data=request.data)
         if serializer.is_valid():
@@ -336,7 +337,7 @@ class HallDetailAV(APIView):
         try:
             hall = ConferenceHall.objects.get(pk=pk)
         except ConferenceHall.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
         
         serializer = HallSerializer(hall)
         return Response(serializer.data)
@@ -358,7 +359,7 @@ class UpdateConferenceHallView(APIView):
         hall = self.get_object(pk)
 
         if hall is None:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
 
         serializer = NewHallUpdateSerializer(hall, data=request.data)
         if serializer.is_valid():
@@ -371,11 +372,67 @@ class UpdateConferenceHallView(APIView):
                 image.save()
 
             return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
+
+# class Update(APIView):
+    
+    
+#     def get_queryset(self, pk):
+#         return ConferenceHall.objects.filter(pk=pk)
+
+#     def get_object(self, pk):
+#         try:
+#             return self.get_queryset(pk).get()
+#         except ConferenceHall.DoesNotExist:
+#             return None
+
+#     def put(self, request, pk, format=None):
+#         hall = self.get_object(pk)
+
+#         if hall is None:
+#             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+
+#         serializer = NewHallUpdateSerializer(hall, data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+            
+#             image_ids = [int(id) for id in request.data.get('image_ids', [])]
+#             print(image_ids)
+#             for image in hall.images.all():
+#                 image.status = image.id in image_ids
+#                 image.save()
+
+#             return Response(serializer.data)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
   
    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # class ConferenceHallUpdateView(generics.UpdateAPIView):
