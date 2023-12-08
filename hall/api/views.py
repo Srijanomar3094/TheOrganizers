@@ -319,7 +319,7 @@ class AOAV(APIView):
     
     
 class HallDetailAV(APIView):
-
+    permission_classes = (IsAuthenticated,)
     def put(request, pk):
         
         try:
@@ -345,19 +345,10 @@ class HallDetailAV(APIView):
 
       
 
-
 class UpdateConferenceHallView(APIView):
-    def get_queryset(self, pk):
-        return ConferenceHall.objects.filter(pk=pk)
-
-    def get_object(self, pk):
-        try:
-            return self.get_queryset(pk).get()
-        except ConferenceHall.DoesNotExist:
-            return None
-
-    def put(self, request, pk, format=None):
-        hall = self.get_object(pk)
+    permission_classes = (IsAuthenticated,)
+    def put(self, request, pk):
+        hall = ConferenceHall.objects.filter(pk=pk).first()
 
         if hall is None:
             return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
@@ -366,26 +357,19 @@ class UpdateConferenceHallView(APIView):
         if serializer.is_valid():
             serializer.save()
             
-            image_ids = [int(id) for id in request.data.get('image_ids', [])]
-            print(image_ids)
+            image_ids = serializer.validated_data.get('image_ids', [])
             for image in hall.images.all():
                 image.status = image.id in image_ids
                 image.save()
 
+            uploaded_images = request.FILES.getlist('uploaded_images')
+            for uploaded_image in uploaded_images:
+                HallImage.objects.create(hall=hall, image=uploaded_image, status=True)
+
             return Response(serializer.data)
-       
-        
-        
-        uploaded_images = [int(id) for id in request.Files.get('uploaded_images', [])]
-        
 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-    
-        for image in uploaded_images:
-            HallImage.objects.create(hall=hall, image=image, status=True)
-
-        return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 # class Update(APIView):
     
@@ -399,7 +383,7 @@ class UpdateConferenceHallView(APIView):
 #         except ConferenceHall.DoesNotExist:
 #             return None
 
-#     def put(self, request, pk, format=None):
+#     def put(self, request, pk):
 #         hall = self.get_object(pk)
 
 #         if hall is None:
@@ -420,6 +404,8 @@ class UpdateConferenceHallView(APIView):
 
   
    
+
+
 
 
 
@@ -468,6 +454,17 @@ class UpdateConferenceHallView(APIView):
     #         return Response(serializer.data)
     #     else:
     #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #  def put(self, request, pk):
+    #     movie = WatchList.objects.get(pk=pk)
+    #     serializer = WatchListSerializer(movie, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data)
+    #     else:
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    
     
 
 # class ConferenceHallUpdateView(APIView):

@@ -62,9 +62,10 @@ class OptionSerializer(serializers.ModelSerializer):
         fields = ['id','name','description']
         
 class ImageSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = HallImage
-        fields = ['id','image']
+        fields = ['id','image','status']
     
         
 class AOHallSerializer(serializers.ModelSerializer):
@@ -287,7 +288,7 @@ class ConferenceHallSerializer(serializers.ModelSerializer):
 #         return instance
 
 # serializers.py
-
+##-------------------------------------------------------------------
 class HallImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = HallImage
@@ -296,16 +297,34 @@ class HallImageSerializer(serializers.ModelSerializer):
 
 
 
+# class NewHallUpdateSerializer(serializers.ModelSerializer):
+#     images = HallImageSerializer(many=True, read_only=True)
+#     uploaded_images = serializers.ListField(
+#         child=serializers.ImageField(allow_empty_file=False, use_url=False),
+#         write_only=True,
+#         required=False
+#     )
+#     class Meta:
+#         model = ConferenceHall
+#         fields = ['id', 'name', 'description', 'eligible_occupancy', 'booking_days_limit','uploaded_images', 'image_ids']
+
+
+########_----------------------------------------
+class ImageIdsField(serializers.ListField):
+    child = serializers.IntegerField()
+
 class NewHallUpdateSerializer(serializers.ModelSerializer):
+    image_ids = ImageIdsField(allow_empty=True, required=False)
     images = HallImageSerializer(many=True, read_only=True)
     uploaded_images = serializers.ListField(
         child=serializers.ImageField(allow_empty_file=False, use_url=False),
         write_only=True,
         required=False
     )
+
     class Meta:
         model = ConferenceHall
-        fields = ['id', 'name', 'description', 'eligible_occupancy', 'booking_days_limit','uploaded_images', 'images']
+        fields = ['id', 'name', 'description', 'eligible_occupancy', 'booking_days_limit', 'uploaded_images','images','image_ids']
 
     # def update(self, instance, validated_data):
     #     uploaded_images = validated_data.pop("uploaded_images", [])

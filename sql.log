@@ -1,0 +1,787 @@
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.001) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.001) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.001) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.001) SELECT 1 AS `a` FROM `token_blacklist_blacklistedtoken` INNER JOIN `token_blacklist_outstandingtoken` ON (`token_blacklist_blacklistedtoken`.`token_id` = `token_blacklist_outstandingtoken`.`id`) WHERE `token_blacklist_outstandingtoken`.`jti` = 'eb5a9f12d21a480e91886d1c65c40bbe' LIMIT 1; args=(1, 'eb5a9f12d21a480e91886d1c65c40bbe'); alias=default
+(0.001) SELECT 1 AS `a` FROM `token_blacklist_blacklistedtoken` INNER JOIN `token_blacklist_outstandingtoken` ON (`token_blacklist_blacklistedtoken`.`token_id` = `token_blacklist_outstandingtoken`.`id`) WHERE `token_blacklist_outstandingtoken`.`jti` = 'eb5a9f12d21a480e91886d1c65c40bbe' LIMIT 1; args=(1, 'eb5a9f12d21a480e91886d1c65c40bbe'); alias=default
+(0.001) SELECT `token_blacklist_outstandingtoken`.`id`, `token_blacklist_outstandingtoken`.`user_id`, `token_blacklist_outstandingtoken`.`jti`, `token_blacklist_outstandingtoken`.`token`, `token_blacklist_outstandingtoken`.`created_at`, `token_blacklist_outstandingtoken`.`expires_at` FROM `token_blacklist_outstandingtoken` WHERE `token_blacklist_outstandingtoken`.`jti` = 'eb5a9f12d21a480e91886d1c65c40bbe' LIMIT 21; args=('eb5a9f12d21a480e91886d1c65c40bbe',); alias=default
+(0.001) SELECT `token_blacklist_outstandingtoken`.`id`, `token_blacklist_outstandingtoken`.`user_id`, `token_blacklist_outstandingtoken`.`jti`, `token_blacklist_outstandingtoken`.`token`, `token_blacklist_outstandingtoken`.`created_at`, `token_blacklist_outstandingtoken`.`expires_at` FROM `token_blacklist_outstandingtoken` WHERE `token_blacklist_outstandingtoken`.`jti` = 'eb5a9f12d21a480e91886d1c65c40bbe' LIMIT 21; args=('eb5a9f12d21a480e91886d1c65c40bbe',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.001) INSERT INTO `token_blacklist_outstandingtoken` (`user_id`, `jti`, `token`, `created_at`, `expires_at`) VALUES (NULL, 'eb5a9f12d21a480e91886d1c65c40bbe', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjA1NDUxNSwiaWF0IjoxNzAxOTY4MTE1LCJqdGkiOiJlYjVhOWYxMmQyMWE0ODBlOTE4ODZkMWM2NWM0MGJiZSIsInVzZXJfaWQiOjd9.H71dtO6Es2xYEEPjSYbgfnJVYBYixVx38_WflNyuBuM', NULL, '2023-12-08 16:55:15') RETURNING `token_blacklist_outstandingtoken`.`id`; args=(None, 'eb5a9f12d21a480e91886d1c65c40bbe', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjA1NDUxNSwiaWF0IjoxNzAxOTY4MTE1LCJqdGkiOiJlYjVhOWYxMmQyMWE0ODBlOTE4ODZkMWM2NWM0MGJiZSIsInVzZXJfaWQiOjd9.H71dtO6Es2xYEEPjSYbgfnJVYBYixVx38_WflNyuBuM', None, '2023-12-08 16:55:15'); alias=default
+(0.001) None; args=(None, 'eb5a9f12d21a480e91886d1c65c40bbe', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjA1NDUxNSwiaWF0IjoxNzAxOTY4MTE1LCJqdGkiOiJlYjVhOWYxMmQyMWE0ODBlOTE4ODZkMWM2NWM0MGJiZSIsInVzZXJfaWQiOjd9.H71dtO6Es2xYEEPjSYbgfnJVYBYixVx38_WflNyuBuM', None, '2023-12-08 16:55:15'); alias=default
+(0.005) COMMIT; args=None; alias=default
+(0.000) SELECT `token_blacklist_blacklistedtoken`.`id`, `token_blacklist_blacklistedtoken`.`token_id`, `token_blacklist_blacklistedtoken`.`blacklisted_at` FROM `token_blacklist_blacklistedtoken` WHERE `token_blacklist_blacklistedtoken`.`token_id` = 459 LIMIT 21; args=(459,); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.008) ROLLBACK; args=None; alias=default
+(0.000) INSERT INTO `token_blacklist_blacklistedtoken` (`token_id`, `blacklisted_at`) VALUES (459, '2023-12-07 17:04:39.080386') RETURNING `token_blacklist_blacklistedtoken`.`id`; args=(459, '2023-12-07 17:04:39.080386'); alias=default
+(0.000) SELECT `token_blacklist_outstandingtoken`.`id`, `token_blacklist_outstandingtoken`.`user_id`, `token_blacklist_outstandingtoken`.`jti`, `token_blacklist_outstandingtoken`.`token`, `token_blacklist_outstandingtoken`.`created_at`, `token_blacklist_outstandingtoken`.`expires_at` FROM `token_blacklist_outstandingtoken` WHERE `token_blacklist_outstandingtoken`.`jti` = 'eb5a9f12d21a480e91886d1c65c40bbe' LIMIT 21; args=('eb5a9f12d21a480e91886d1c65c40bbe',); alias=default
+(0.000) SELECT `token_blacklist_blacklistedtoken`.`id`, `token_blacklist_blacklistedtoken`.`token_id`, `token_blacklist_blacklistedtoken`.`blacklisted_at` FROM `token_blacklist_blacklistedtoken` WHERE `token_blacklist_blacklistedtoken`.`token_id` = 459 LIMIT 21; args=(459,); alias=default
+(0.004) COMMIT; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.001) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.001) SELECT 1 AS `a` FROM `user_user_details` WHERE (`user_user_details`.`role` = 'ao' AND `user_user_details`.`user_id` = 7) LIMIT 1; args=(1, 'ao', 7); alias=default
+(0.001) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall`; args=(); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 1; args=(1,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 2; args=(2,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 3; args=(3,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 6; args=(6,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 8; args=(8,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 9; args=(9,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 23; args=(23,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 24; args=(24,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 25; args=(25,); alias=default
+(0.001) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 26; args=(26,); alias=default
+(0.000) SELECT 1 AS `a` FROM `user_user_details` WHERE (`user_user_details`.`role` = 'ao' AND `user_user_details`.`user_id` = 7) LIMIT 1; args=(1, 'ao', 7); alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall`; args=(); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 1; args=(1,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 2; args=(2,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 3; args=(3,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 6; args=(6,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 8; args=(8,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 9; args=(9,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 23; args=(23,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 24; args=(24,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 25; args=(25,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 26; args=(26,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT 1 AS `a` FROM `token_blacklist_blacklistedtoken` INNER JOIN `token_blacklist_outstandingtoken` ON (`token_blacklist_blacklistedtoken`.`token_id` = `token_blacklist_outstandingtoken`.`id`) WHERE `token_blacklist_outstandingtoken`.`jti` = 'cfa11acaea2440d3b42dbdf592ae4766' LIMIT 1; args=(1, 'cfa11acaea2440d3b42dbdf592ae4766'); alias=default
+(0.000) SELECT `token_blacklist_outstandingtoken`.`id`, `token_blacklist_outstandingtoken`.`user_id`, `token_blacklist_outstandingtoken`.`jti`, `token_blacklist_outstandingtoken`.`token`, `token_blacklist_outstandingtoken`.`created_at`, `token_blacklist_outstandingtoken`.`expires_at` FROM `token_blacklist_outstandingtoken` WHERE `token_blacklist_outstandingtoken`.`jti` = 'cfa11acaea2440d3b42dbdf592ae4766' LIMIT 21; args=('cfa11acaea2440d3b42dbdf592ae4766',); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.000) INSERT INTO `token_blacklist_outstandingtoken` (`user_id`, `jti`, `token`, `created_at`, `expires_at`) VALUES (NULL, 'cfa11acaea2440d3b42dbdf592ae4766', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjA1NTA3OSwiaWF0IjoxNzAxOTY4Njc5LCJqdGkiOiJjZmExMWFjYWVhMjQ0MGQzYjQyZGJkZjU5MmFlNDc2NiIsInVzZXJfaWQiOjd9.zuGZvCb126xam0qzNgk1iwsWm-XwxKVMESFO4oA6NUs', NULL, '2023-12-08 17:04:39') RETURNING `token_blacklist_outstandingtoken`.`id`; args=(None, 'cfa11acaea2440d3b42dbdf592ae4766', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjA1NTA3OSwiaWF0IjoxNzAxOTY4Njc5LCJqdGkiOiJjZmExMWFjYWVhMjQ0MGQzYjQyZGJkZjU5MmFlNDc2NiIsInVzZXJfaWQiOjd9.zuGZvCb126xam0qzNgk1iwsWm-XwxKVMESFO4oA6NUs', None, '2023-12-08 17:04:39'); alias=default
+(0.074) COMMIT; args=None; alias=default
+(0.001) SELECT `token_blacklist_blacklistedtoken`.`id`, `token_blacklist_blacklistedtoken`.`token_id`, `token_blacklist_blacklistedtoken`.`blacklisted_at` FROM `token_blacklist_blacklistedtoken` WHERE `token_blacklist_blacklistedtoken`.`token_id` = 461 LIMIT 21; args=(461,); alias=default
+(0.000) BEGIN; args=None; alias=default
+(0.001) INSERT INTO `token_blacklist_blacklistedtoken` (`token_id`, `blacklisted_at`) VALUES (461, '2023-12-07 17:18:40.969727') RETURNING `token_blacklist_blacklistedtoken`.`id`; args=(461, '2023-12-07 17:18:40.969727'); alias=default
+(0.004) COMMIT; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.001) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.001) SELECT 1 AS `a` FROM `user_user_details` WHERE (`user_user_details`.`role` = 'ao' AND `user_user_details`.`user_id` = 7) LIMIT 1; args=(1, 'ao', 7); alias=default
+(0.001) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall`; args=(); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 1; args=(1,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 2; args=(2,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 3; args=(3,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 6; args=(6,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 8; args=(8,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 9; args=(9,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 23; args=(23,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 24; args=(24,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 25; args=(25,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 26; args=(26,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.001) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`username` = 'ao' LIMIT 21; args=('ao',); alias=default
+(0.005) INSERT INTO `token_blacklist_outstandingtoken` (`user_id`, `jti`, `token`, `created_at`, `expires_at`) VALUES (7, '5703a559ca82449787bd2031ee279fb5', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjA2NTUzMCwiaWF0IjoxNzAxOTc5MTMwLCJqdGkiOiI1NzAzYTU1OWNhODI0NDk3ODdiZDIwMzFlZTI3OWZiNSIsInVzZXJfaWQiOjd9.DzTQWlkf4D4GGYbOfrZF5YVF1r-yYBLy25hGG-I-aKo', '2023-12-07 19:58:50.231936', '2023-12-08 19:58:50') RETURNING `token_blacklist_outstandingtoken`.`id`; args=(7, '5703a559ca82449787bd2031ee279fb5', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjA2NTUzMCwiaWF0IjoxNzAxOTc5MTMwLCJqdGkiOiI1NzAzYTU1OWNhODI0NDk3ODdiZDIwMzFlZTI3OWZiNSIsInVzZXJfaWQiOjd9.DzTQWlkf4D4GGYbOfrZF5YVF1r-yYBLy25hGG-I-aKo', '2023-12-07 19:58:50.231936', '2023-12-08 19:58:50'); alias=default
+(0.004) UPDATE `auth_user` SET `last_login` = '2023-12-07 19:58:50.245491' WHERE `auth_user`.`id` = 7; args=('2023-12-07 19:58:50.245491', 7); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new5', `description` = 'new5', `eligible_occupancy` = 77, `booking_days_limit` = 6 WHERE `hall_conferencehall`.`id` = 7; args=('new5', 'new5', 77, 6, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 1 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', True, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.004) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.003) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.003) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', True, 6); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', True, 6); alias=default
+(0.004) INSERT INTO `hall_hallimage` (`hall_id`, `image`, `status`) VALUES (7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', 1) RETURNING `hall_hallimage`.`id`; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True); alias=default
+(0.006) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', True, 6); alias=default
+(0.005) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', False, 17); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.005) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', False, 17); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.005) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', True, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', False, 17); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', True, 6); alias=default
+(0.005) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', True, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', True, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.006) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.001) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.004) INSERT INTO `hall_hallimage` (`hall_id`, `image`, `status`) VALUES (7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', 1) RETURNING `hall_hallimage`.`id`; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', True); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.001) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.003) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 18; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', False, 18); alias=default
+(0.004) INSERT INTO `hall_hallimage` (`hall_id`, `image`, `status`) VALUES (7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', 1) RETURNING `hall_hallimage`.`id`; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', True); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', False, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.005) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', True, 6); alias=default
+(0.004) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', False, 17); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 18; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', False, 18); alias=default
+(0.004) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 19; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', False, 19); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.005) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', True, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.004) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.003) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 18; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', False, 18); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 19; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', False, 19); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', True, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 18; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', False, 18); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 19; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', False, 19); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 ORDER BY `hall_conferencehall`.`id` ASC LIMIT 1; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', True, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 18; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', False, 18); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 19; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', False, 19); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 ORDER BY `hall_conferencehall`.`id` ASC LIMIT 1; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', True, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 18; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', False, 18); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 19; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', False, 19); alias=default
+(0.005) INSERT INTO `hall_hallimage` (`hall_id`, `image`, `status`) VALUES (7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_lpxnEc1.jpg', 1) RETURNING `hall_hallimage`.`id`; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_lpxnEc1.jpg', True); alias=default
+(0.008) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 ORDER BY `hall_conferencehall`.`id` ASC LIMIT 1; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', True, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 17; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure.jpg', True, 17); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 18; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', False, 18); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 19; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_c7VKHRq.jpg', False, 19); alias=default
+(0.005) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_lpxnEc1.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 20; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_lpxnEc1.jpg', False, 20); alias=default
+(0.003) INSERT INTO `hall_hallimage` (`hall_id`, `image`, `status`) VALUES (7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_enBtsYj.jpg', 1) RETURNING `hall_hallimage`.`id`; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_enBtsYj.jpg', True); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall` WHERE `hall_conferencehall`.`id` = 7 ORDER BY `hall_conferencehall`.`id` ASC LIMIT 1; args=(7,); alias=default
+(0.000) UPDATE `hall_conferencehall` SET `name` = 'new6', `description` = 'new6', `eligible_occupancy` = 78, `booking_days_limit` = 8 WHERE `hall_conferencehall`.`id` = 7; args=('new6', 'new6', 78, 8, 7); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall1.jpg', `status` = 1 WHERE `hall_hallimage`.`id` = 4; args=(7, 'halls/hall1.jpg', True, 4); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall2.jpeg', `status` = 0 WHERE `hall_hallimage`.`id` = 5; args=(7, 'halls/hall2.jpeg', False, 5); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/hall3.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 6; args=(7, 'halls/hall3.jpg', False, 6); alias=default
+(0.000) UPDATE `hall_hallimage` SET `hall_id` = 7, `image` = 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', `status` = 0 WHERE `hall_hallimage`.`id` = 18; args=(7, 'halls/3d-render-low-poly-plexus-design-with-network-communications-structure_NPWtXIn.jpg', False, 18); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) 
+            SELECT
+                table_name,
+                table_type,
+                table_comment
+            FROM information_schema.tables
+            WHERE table_schema = DATABASE()
+            ; args=None; alias=default
+(0.000) SELECT `django_migrations`.`id`, `django_migrations`.`app`, `django_migrations`.`name`, `django_migrations`.`applied` FROM `django_migrations`; args=(); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`username` = 'ao' LIMIT 21; args=('ao',); alias=default
+(0.004) INSERT INTO `token_blacklist_outstandingtoken` (`user_id`, `jti`, `token`, `created_at`, `expires_at`) VALUES (7, '8d891ebebebd4426b193474b09226107', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjEyOTkwNiwiaWF0IjoxNzAyMDQzNTA2LCJqdGkiOiI4ZDg5MWViZWJlYmQ0NDI2YjE5MzQ3NGIwOTIyNjEwNyIsInVzZXJfaWQiOjd9.wIo0rZOarRWCJfn00xlX_MsoIzAYY9_01rrG3xEnNPA', '2023-12-08 13:51:46.133189', '2023-12-09 13:51:46') RETURNING `token_blacklist_outstandingtoken`.`id`; args=(7, '8d891ebebebd4426b193474b09226107', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjEyOTkwNiwiaWF0IjoxNzAyMDQzNTA2LCJqdGkiOiI4ZDg5MWViZWJlYmQ0NDI2YjE5MzQ3NGIwOTIyNjEwNyIsInVzZXJfaWQiOjd9.wIo0rZOarRWCJfn00xlX_MsoIzAYY9_01rrG3xEnNPA', '2023-12-08 13:51:46.133189', '2023-12-09 13:51:46'); alias=default
+(0.005) UPDATE `auth_user` SET `last_login` = '2023-12-08 13:51:46.213872' WHERE `auth_user`.`id` = 7; args=('2023-12-08 13:51:46.213872', 7); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SELECT `user_user_details`.`id`, `user_user_details`.`user_id`, `user_user_details`.`department`, `user_user_details`.`role` FROM `user_user_details` WHERE `user_user_details`.`user_id` = 7 ORDER BY `user_user_details`.`id` ASC LIMIT 1; args=(7,); alias=default
+(0.001) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SELECT `hall_homepage`.`field`, `hall_homepage`.`role`, `hall_homepage`.`route` FROM `hall_homepage` WHERE `hall_homepage`.`role` = 'ao'; args=('ao',); alias=default
+(0.001) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SELECT `user_user_details`.`id`, `user_user_details`.`user_id`, `user_user_details`.`department`, `user_user_details`.`role` FROM `user_user_details` WHERE `user_user_details`.`user_id` = 7 ORDER BY `user_user_details`.`id` ASC LIMIT 1; args=(7,); alias=default
+(0.000) SELECT `hall_homepage`.`field`, `hall_homepage`.`role`, `hall_homepage`.`route` FROM `hall_homepage` WHERE `hall_homepage`.`role` = 'ao'; args=('ao',); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SELECT `user_user_details`.`id`, `user_user_details`.`user_id`, `user_user_details`.`department`, `user_user_details`.`role` FROM `user_user_details` WHERE `user_user_details`.`user_id` = 7 ORDER BY `user_user_details`.`id` ASC LIMIT 1; args=(7,); alias=default
+(0.000) SELECT `hall_homepage`.`field`, `hall_homepage`.`role`, `hall_homepage`.`route` FROM `hall_homepage` WHERE `hall_homepage`.`role` = 'ao'; args=('ao',); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`username` = 'ao' LIMIT 21; args=('ao',); alias=default
+(0.076) INSERT INTO `token_blacklist_outstandingtoken` (`user_id`, `jti`, `token`, `created_at`, `expires_at`) VALUES (7, 'a3cba302ff4948b780bed080a829fe05', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjEyOTkxMSwiaWF0IjoxNzAyMDQzNTExLCJqdGkiOiJhM2NiYTMwMmZmNDk0OGI3ODBiZWQwODBhODI5ZmUwNSIsInVzZXJfaWQiOjd9.4dPacgv21gC9wOeWlw3h0mcvhQRLZwDKVZvRrn6U118', '2023-12-08 13:51:51.290120', '2023-12-09 13:51:51') RETURNING `token_blacklist_outstandingtoken`.`id`; args=(7, 'a3cba302ff4948b780bed080a829fe05', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMjEyOTkxMSwiaWF0IjoxNzAyMDQzNTExLCJqdGkiOiJhM2NiYTMwMmZmNDk0OGI3ODBiZWQwODBhODI5ZmUwNSIsInVzZXJfaWQiOjd9.4dPacgv21gC9wOeWlw3h0mcvhQRLZwDKVZvRrn6U118', '2023-12-08 13:51:51.290120', '2023-12-09 13:51:51'); alias=default
+(0.005) UPDATE `auth_user` SET `last_login` = '2023-12-08 13:51:51.368434' WHERE `auth_user`.`id` = 7; args=('2023-12-08 13:51:51.368434', 7); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SELECT `user_user_details`.`id`, `user_user_details`.`user_id`, `user_user_details`.`department`, `user_user_details`.`role` FROM `user_user_details` WHERE `user_user_details`.`user_id` = 7 ORDER BY `user_user_details`.`id` ASC LIMIT 1; args=(7,); alias=default
+(0.000) SELECT `hall_homepage`.`field`, `hall_homepage`.`role`, `hall_homepage`.`route` FROM `hall_homepage` WHERE `hall_homepage`.`role` = 'ao'; args=('ao',); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.002) SELECT `user_user_details`.`id`, `user_user_details`.`user_id`, `user_user_details`.`department`, `user_user_details`.`role` FROM `user_user_details` WHERE `user_user_details`.`user_id` = 7 ORDER BY `user_user_details`.`id` ASC LIMIT 1; args=(7,); alias=default
+(0.000) SELECT `hall_homepage`.`field`, `hall_homepage`.`role`, `hall_homepage`.`route` FROM `hall_homepage` WHERE `hall_homepage`.`role` = 'ao'; args=('ao',); alias=default
+(0.000) 
+                SELECT VERSION(),
+                       @@sql_mode,
+                       @@default_storage_engine,
+                       @@sql_auto_is_null,
+                       @@lower_case_table_names,
+                       CONVERT_TZ('2001-01-01 01:00:00', 'UTC', 'UTC') IS NOT NULL
+            ; args=None; alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SELECT 1 AS `a` FROM `user_user_details` WHERE (`user_user_details`.`role` = 'ao' AND `user_user_details`.`user_id` = 7) LIMIT 1; args=(1, 'ao', 7); alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall`; args=(); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 1; args=(1,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 2; args=(2,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 3; args=(3,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 6; args=(6,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 8; args=(8,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 9; args=(9,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 23; args=(23,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 24; args=(24,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 25; args=(25,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 26; args=(26,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.000) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.000) SELECT 1 AS `a` FROM `user_user_details` WHERE (`user_user_details`.`role` = 'ao' AND `user_user_details`.`user_id` = 7) LIMIT 1; args=(1, 'ao', 7); alias=default
+(0.000) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall`; args=(); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 1; args=(1,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 2; args=(2,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 3; args=(3,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 6; args=(6,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 8; args=(8,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 9; args=(9,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 23; args=(23,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 24; args=(24,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 25; args=(25,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 26; args=(26,); alias=default
+(0.000) SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED; args=None; alias=default
+(0.001) SELECT `auth_user`.`id`, `auth_user`.`password`, `auth_user`.`last_login`, `auth_user`.`is_superuser`, `auth_user`.`username`, `auth_user`.`first_name`, `auth_user`.`last_name`, `auth_user`.`email`, `auth_user`.`is_staff`, `auth_user`.`is_active`, `auth_user`.`date_joined` FROM `auth_user` WHERE `auth_user`.`id` = 7 LIMIT 21; args=(7,); alias=default
+(0.001) SELECT 1 AS `a` FROM `user_user_details` WHERE (`user_user_details`.`role` = 'ao' AND `user_user_details`.`user_id` = 7) LIMIT 1; args=(1, 'ao', 7); alias=default
+(0.001) SELECT `hall_conferencehall`.`id`, `hall_conferencehall`.`name`, `hall_conferencehall`.`description`, `hall_conferencehall`.`eligible_occupancy`, `hall_conferencehall`.`booking_days_limit` FROM `hall_conferencehall`; args=(); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 1; args=(1,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 2; args=(2,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 3; args=(3,); alias=default
+(0.001) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 6; args=(6,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 7; args=(7,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 8; args=(8,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 9; args=(9,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 23; args=(23,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 24; args=(24,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 25; args=(25,); alias=default
+(0.000) SELECT `hall_hallimage`.`id`, `hall_hallimage`.`hall_id`, `hall_hallimage`.`image`, `hall_hallimage`.`status` FROM `hall_hallimage` WHERE `hall_hallimage`.`hall_id` = 26; args=(26,); alias=default
