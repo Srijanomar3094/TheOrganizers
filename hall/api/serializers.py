@@ -10,7 +10,6 @@ class HallImageSerializers(serializers.ModelSerializer):
         
         
 class UserSerializers(serializers.ModelSerializer):
-    #department = serializers.ReadOnlyField(source='employee_details.department')
     
     class Meta:
         model = User
@@ -74,12 +73,7 @@ class AOHallSerializer(serializers.ModelSerializer):
         model = ConferenceHall
         fields = ['id','name','description','images']
         
-    # def update(self, validated_data):
-    #     images_data = validated_data.pop('images')
-    #     hall = ConferenceHall.objects.update(**validated_data)
-    #     for image_data in images_data:
-    #          HallImage.objects.update(hall=hall, **image_data)
-    #     return hall
+  
     
     
         
@@ -202,14 +196,6 @@ class AOputSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConferenceHall
         fields = '__all__'
-
-
-        
-
-        
-        
-        
-
 
 class HallImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -349,11 +335,6 @@ class NewHallUpdateSerializer(serializers.ModelSerializer):
     #     return instance
 
 
-
-
-
-
-
 class AOUpdateSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True, read_only=True)
     uploaded_images = serializers.ListField(
@@ -402,17 +383,6 @@ class AOUpdateSerializer(serializers.ModelSerializer):
 
     #     return instance
     
-    
-
-
-
-
-
-
-
-
-
-
 
 
     def update(self, instance, validated_data):
